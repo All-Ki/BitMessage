@@ -52,23 +52,23 @@ contract BitMessage is ChainlinkClient {
         );
 
         // Set the URL and the body of the HTTP POST request
-        req.add("http_post_url", "your-api-url-here");
-        req.add("http_post_body", string(abi.encodePacked("receiver=", toString(receiver), "&message=", encryptedMessage)));
+        //req.add("http_post_url", "your-api-url-here");
+        //req.add("http_post_body", string(abi.encodePacked("receiver=", toString(receiver), "&message=", encryptedMessage)));
 
         // Send the request
-        sendChainlinkRequest(req, ORACLE_PAYMENT);
+       // sendChainlinkRequest(req, ORACLE_PAYMENT);
     }
 
     function fulfillSms(bytes32 _requestId, bytes32 _result) public recordChainlinkFulfillment(_requestId) {
         // This function will be called when the Chainlink node fulfills the request
         // _result will contain the result of the HTTP POST request
-        emit SmsSent(msg.sender, receiver, encryptedMessage);
+      //  emit SmsSent(msg.sender, receiver, encryptedMessage);
     }
 
     function toString(address x) internal pure returns (string memory) {
         bytes memory b = new bytes(20);
         for (uint i = 0; i < 20; i++)
-            b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
+        //    b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
         return string(b);
     }
 }
