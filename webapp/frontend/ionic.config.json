@@ -1,0 +1,7 @@
+{
+  "name": "BitMessage",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

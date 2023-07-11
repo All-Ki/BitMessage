@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat
+     </ion-title>
+     <ion-button  (click)="goToDiscussionList()" slot="end"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container"  #list [scrollTop]="list.scrollHeight" >
+    <div class="stream" >
+      <ion-item lines="none" *ngFor="let message of messages; let i=index">
+        <ion-avatar *ngIf="i%2"  slot="start"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+        <ion-badge text-wrap slot="start" color="light" *ngIf="i%2">{{ message.text }}  </ion-badge>
+        <ion-badge text-wrap slot="end" color="primary" *ngIf="!(i%2)">  {{ message.text }}</ion-badge>
+        <ion-avatar *ngIf="!(i%2)" slot="end"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+
+
+      </ion-item>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" class="input-col">
+        <ion-input  type="text" placeholder="Entrez votre message"></ion-input>
+      </ion-col>
+      <ion-col size="2" class="send-col">
+        <ion-button shape="full">
+          <ion-icon name="paper-plane"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+</ion-content>
