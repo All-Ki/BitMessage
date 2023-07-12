@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class MessagesService {
+export class UsersService {
 
   constructor() { }
+  getCurrentUser() : number {
+    return 1;
+  }
 }
