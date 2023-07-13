@@ -5,6 +5,16 @@ import axios from 'axios';
 @Injectable({
   providedIn: 'root'
 })
+
+export class Message {
+  id: number = 0;
+  text: string = '' ;
+  sender: number = 0 ;
+  receiver: number = 0;
+  date: Date = new Date();
+}
+
+
 export class MessagesService {
 
   constructor(private userSvc: UsersService) { }
