@@ -31,7 +31,7 @@ export class MessagesService {
     await axios.post(environment.url + '/messages', msg);
   }
 
-  async getMessages() : Promise<any>{
+  async getMessagesFrom(from : string) : Promise<any>{
     const receiver = this.userSvc.getCurrentUser();
     const res = await axios.get(environment.url + '/messages/' + receiver);
     return res.data;

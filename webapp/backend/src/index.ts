@@ -50,12 +50,17 @@ app.post('/messages', async (req, res) => {
 	res.send(message);
 })
 
-app.get('/messages/:receiver', async (req, res) => {
+app.get('/messages/:receiver/:sender', async (req, res) => {
 	const receiver = req.params.receiver;
+	const sender = req.params.sender;
 	const msgs = await Message.findAll({
 		where: {
 			receiver: receiver,
-		}
+			sender: sender,
+		},
+		order: [
+			['date', 'DESC'],
+		],
 	})
 	res.send(msgs);
 })
