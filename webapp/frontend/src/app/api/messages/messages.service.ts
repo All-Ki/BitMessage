@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { UsersService } from '../users/users.service';
 import { environment } from 'src/environments/environment';
 import axios from 'axios';
-@Injectable({
-  providedIn: 'root'
-})
 
 export class Message {
   id: number = 0;
@@ -14,6 +11,9 @@ export class Message {
   date: Date = new Date();
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 
 export class MessagesService {
 

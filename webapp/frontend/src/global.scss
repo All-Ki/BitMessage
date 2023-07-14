@@ -24,3 +24,12 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+@media not screen and (hover: none) and (pointer: coarse){
+
+	body{
+		width: 412px;
+		height: 914px;
+		border: 1px solid #fff;
+		left: calc(50% - 206px);
+	}
+}

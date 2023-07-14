@@ -9,4 +9,7 @@ export class UsersService {
   getCurrentUser() : number {
     return 1;
   }
+  login(private_key: string) : boolean {
+    return true;
+  }
 }

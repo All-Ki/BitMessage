@@ -26,6 +26,7 @@ export const Message = sequelize.define('Message', {
 	},
 })
 
+
 export const User = sequelize.define('User', {
 	id: {
 		type: DataTypes.INTEGER,
@@ -37,3 +38,5 @@ export const User = sequelize.define('User', {
 		allowNull: false,
 	},
 })
+
+sequelize.sync({ force: true })

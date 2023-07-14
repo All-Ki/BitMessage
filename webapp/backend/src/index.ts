@@ -41,11 +41,11 @@ type NewMessage = {
 	sender: number,
 	receiver: number,
 }
-app.post('/messages', (req, res) => {
+app.post('/messages', async (req, res) => {
 	console.log(req.body);
 	const message : NewMessage = req.body;
 	const builtMessage = Message.build(message);
-	builtMessage.save();
+	await builtMessage.save();
 	log(message);
 	res.send(message);
 })
