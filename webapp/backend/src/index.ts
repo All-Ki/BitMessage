@@ -1,4 +1,4 @@
-import { log } from 'console';
+import { group, log } from 'console';
 import cors from 'cors'
 import express from 'express'
 import {User, Message} from './models'
@@ -59,6 +59,20 @@ app.get('/messages/:receiver', async (req, res) => {
 	})
 	res.send(msgs);
 })
+app.get('/discussions/:user', async (req, res) => {
+	const user = req.params.user;
+	const msgs = await Message.findAll({
+		where: {
+			receiver: user,
+		},
+		group: ['sender'],
+		order: [
+			['date', 'DESC'],
+		],
+	})
+	res.send(msgs);
+})
+
 /**
  * On demande à Express d'ecouter les requêtes sur le port défini dans la config
  */
