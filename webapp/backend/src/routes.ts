@@ -56,5 +56,15 @@ export function create_routes(app){
 		})
 		res.send(msgs);
 	})
+	app.post('/login', async (req, res) => {
+		const public_key = req.body.public_key;
+		const encrypted_message = req.body.encrypted_message;
+
+		console.log("Public Key:" + public_key);
+		console.log("Encrypted Message:" + encrypted_message);
+		
+		res.send('OK')
+	})
+
 	return app;
 }
