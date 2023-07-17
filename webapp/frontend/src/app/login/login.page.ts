@@ -12,9 +12,12 @@ export class LoginPage implements OnInit {
   constructor(private router: Router, private userService: UsersService) { }
 
   ngOnInit() {
+
   }
 
-  login(form: any){
-    this.userService.login
+  public private_key: string = "";
+  login(){
+    this.userService.login(this.private_key)
   }
+
 }
