@@ -2,7 +2,6 @@ import { group, log } from 'console';
 import cors from 'cors'
 import express from 'express'
 import {User, Message} from './models'
-import { Sequelize } from 'sequelize';
 const PORT = 5656
 /**
  * On créé une nouvelle "application" express
