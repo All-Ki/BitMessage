@@ -8,10 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class DiscussionListPage implements OnInit {
   public discussions : any = [];
-  public goToChat(discussion : any){
-    console.log('goToChat');
-    this.navCtrl.navigateForward('/tabs/chat');
-  }
+
 
   constructor(public navCtrl: NavController) {
     this.discussions = [
