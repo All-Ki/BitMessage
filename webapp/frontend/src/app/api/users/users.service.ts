@@ -1,16 +1,31 @@
 import { Injectable } from '@angular/core';
-
+import { environment } from 'src/environments/environment';
+import axios from 'axios';
+import * as Accounts from 'web3-eth-accounts';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor() { }
+  constructor() {
+   }
 
   getCurrentUser() : number {
     return 1;
   }
-  login(private_key: string) : boolean {
+  private private_key: string = "";
+  private wallet: any;
+  private accounts: any;
+  async login(private_key: string) : Promise<boolean> {
+    this.private_key = private_key;
+
+    let acc = Accounts.privateKeyToAccount(private_key);
+    let signed = acc.sign('Login from ' + acc.address);
+    console.log(acc)
+    console.log("recovered : " + Accounts.recover('Login from ' + acc.address , signed.signature))
+    const res = await axios.post(environment.url + '/login',
+    {public_key:acc.address, encrypted_message:signed});
+    this.wallet = acc;
     console.log('login ' + private_key);
     return true;
   }
