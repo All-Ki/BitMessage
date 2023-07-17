@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./discussion-list/discussion-list.module').then( m => m.DiscussionListPageModule)
   },
   {
-    path: 'message/:id',
+    path: 'chat/:id',
     loadChildren: () => import('./discussion-list/chat/chat.module').then( m => m.ChatPageModule)
   },
   {

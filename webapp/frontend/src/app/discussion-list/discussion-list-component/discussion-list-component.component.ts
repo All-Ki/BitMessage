@@ -9,11 +9,11 @@ import { NavController } from '@ionic/angular';
 export class DiscussionListComponentComponent implements OnInit {
 
   @Input() discussions : any = [];
-  public goToChat(id : string){
-    console.log('goToChat');
-    this.navCtrl.navigateForward('/message/'+id);
+  public goToChat(discussion : any){
+    console.log('goToChatsss');
+    console.log(discussion);
+    this.navCtrl.navigateForward('/chat/'+discussion.id);
   }
-
   constructor(public navCtrl: NavController) {
 
   }
