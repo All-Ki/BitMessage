@@ -33,3 +33,9 @@
 		left: calc(50% - 206px);
 	}
 }
+:root{
+	--top-bar-tabs-height: 56px;
+	--tab-bar-height: 56px;
+	--content-height: calc(100% - var(--top-bar-tabs-height) - var(--tab-bar-height));
+
+}

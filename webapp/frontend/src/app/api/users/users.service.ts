@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class UsersService {
 
   constructor() { }
+
   getCurrentUser() : number {
     return 1;
   }
