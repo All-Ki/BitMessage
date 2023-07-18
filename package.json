@@ -7,7 +7,7 @@
     "start:backend": "cd webapp/backend && npm run dev",
     "start:frontend": "cd webapp/frontend && npm start",
     "start:web": "npm install:all && npm-run-all --parallel start:backend start:frontend",
-    "install:all": "npm install && cd webapp/backend && npm install && cd ../frontend && npm install"
+    "install:all": "npm ci && cd webapp/backend && npm ci && cd ../frontend && npm ci"
   },
   "author": "",
   "license": "ISC",
