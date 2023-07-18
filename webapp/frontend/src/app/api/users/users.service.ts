@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import axios from 'axios';
 import * as Accounts from 'web3-eth-accounts';
 import { ApiService } from '../api/api.service';
 @Injectable({
@@ -22,20 +20,26 @@ export class UsersService {
   }
 
   async login(private_key: string) : Promise<boolean> {
-    this.private_key = private_key;
+    try{
+      this.private_key = private_key;
 
-    let acc = Accounts.privateKeyToAccount(private_key);
-    let signed = acc.sign('Login from ' + acc.address);
-    /*
-    console.log( "signed message : ")
-    console.log(signed)
-    console.log("account : ")
-    console.log(acc)
-  */
-    console.log("recovered : " + Accounts.recover('Login from ' + acc.address , signed.signature))
-    const res = await ApiService.post('/login',{public_key:acc.address, encrypted_message:signed});
-    this.wallet = acc;
-    console.log('login ' + private_key);
-    return true;
+      let acc = Accounts.privateKeyToAccount(private_key);
+      let signed = acc.sign('Login from ' + acc.address);
+      /*
+      console.log( "signed message : ")
+      console.log(signed)
+      console.log("account : ")
+      console.log(acc)
+    */
+      console.log("recovered : " + Accounts.recover('Login from ' + acc.address , signed.signature))
+      const res = await ApiService.post('/login',{public_key:acc.address, encrypted_message:signed});
+      this.wallet = acc;
+      console.log('login ' + private_key);
+      return true;
+    }
+    catch(e){
+      console.log(e);
+      return false;
+    }
   }
 }
