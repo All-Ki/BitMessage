@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { CONSTANTS } from 'src/app/constants';
 
 @Component({
   selector: 'app-contacts-list',
@@ -7,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactsListPage implements OnInit {
 
-  constructor() { }
-
+  constructor(private navCtrl: NavController) { }
+  goToDiscussionList(){
+    this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
+  }
   ngOnInit() {
   }
 

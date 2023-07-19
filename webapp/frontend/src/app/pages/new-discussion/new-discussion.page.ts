@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { CONSTANTS } from 'src/app/constants';
 
 @Component({
   selector: 'app-new-discussion',
@@ -7,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewDiscussionPage implements OnInit {
 
-  constructor() { }
-
+  constructor(private navCtrl: NavController) { }
+  goToDiscussionList(){
+    this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
+  }
   ngOnInit() {
   }
 
