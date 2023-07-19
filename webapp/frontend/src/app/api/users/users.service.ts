@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class UsersService {
   private private_key: string = '';
   private wallet: any;
+  private public_key: string = '';
   private accounts: any;
   private isInitialized: boolean = false;
   async waitForReady() {
@@ -28,8 +29,8 @@ export class UsersService {
     }
     this.isInitialized = true;
   }
-  getCurrentUser(): number {
-    return this.wallet.address;
+  getCurrentUser(): string {
+    return this.public_key;
   }
 
   public async isLoggedIn(): Promise<boolean> {
@@ -40,7 +41,6 @@ export class UsersService {
 
   async login(private_key: string): Promise<boolean> {
     try {
-      this.private_key = private_key;
 
       let acc = Accounts.privateKeyToAccount(private_key);
       let signed = acc.sign('Login from ' + acc.address);
@@ -49,7 +49,9 @@ export class UsersService {
         public_key: acc.address,
         encrypted_message: signed,
       });
+      this.private_key = private_key;
       this.wallet = acc;
+      this.public_key = acc.address;
       this.storage.set('wallet', private_key);
       //console.log(await this.storage.get('wallet'))
       // console.log('login ' + private_key);
