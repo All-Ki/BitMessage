@@ -9,13 +9,17 @@
 
 <ion-content>
   <div  class="container">
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     <ion-item class="login-key-input" lines="full" >
       <ion-label position="floating">Key</ion-label>
       <ion-input aria-label="private key" [(ngModel)]="private_key" type="text"  required></ion-input>
     </ion-item>
     <ion-row>
       <ion-col class="login-btn-container">
-        <ion-button type="submit" color="primary" expand="block" (click)="login()">Sign In</ion-button>
+        <ion-button [disabled]="loading" color="primary" expand="block" (click)="login()">
+          <ion-spinner *ngIf="loading" name="crescent" color="light"></ion-spinner>
+          <span *ngIf="!loading">Sign In</span>
+        </ion-button>
       </ion-col>
     </ion-row>
   </div>
