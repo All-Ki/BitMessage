@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { MessagesService } from '../api/messages/messages.service';
+import { MessagesService } from 'src/app/api/messages/messages.service';
 
 @Component({
   selector: 'app-discussion-list',

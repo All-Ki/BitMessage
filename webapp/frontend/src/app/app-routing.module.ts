@@ -5,12 +5,12 @@ import { CONSTANTS } from './constants';
 const routes: Routes = [
   {
     path: CONSTANTS.discussion_list_page,
-    loadChildren: () => import('./discussion-list/discussion-list.module').then( m => m.DiscussionListPageModule),
+    loadChildren: () => import('./pages/discussion-list/discussion-list.module').then( m => m.DiscussionListPageModule),
     canActivate: [LoggedInGuardGuard]
   },
   {
     path: CONSTANTS.chat_page + '/:id',
-    loadChildren: () => import('./discussion-list/chat/chat.module').then( m => m.ChatPageModule),
+    loadChildren: () => import('./pages/discussion-list/chat/chat.module').then( m => m.ChatPageModule),
     canActivate: [LoggedInGuardGuard]
   },
   {
@@ -20,28 +20,28 @@ const routes: Routes = [
   },
   {
     path: CONSTANTS.login_page,
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: CONSTANTS.settings_page,
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule),
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
    canActivate: [LoggedInGuardGuard]
   },
   {
     path: CONSTANTS.new_discussion_page,
-    loadChildren: () => import('./new-discussion/new-discussion.module').then( m => m.NewDiscussionPageModule),
+    loadChildren: () => import('./pages/new-discussion/new-discussion.module').then( m => m.NewDiscussionPageModule),
     canActivate: [LoggedInGuardGuard]
 
   },
   {
     path: CONSTANTS.contacts_list_page,
-    loadChildren: () => import('./contacts-list/contacts-list.module').then( m => m.ContactsListPageModule),
+    loadChildren: () => import('./pages/contacts-list/contacts-list.module').then( m => m.ContactsListPageModule),
     canActivate: [LoggedInGuardGuard]
 
   },
   {
     path: CONSTANTS.contact_details_page + '/:id',
-    loadChildren: () => import('./contact-details/contact-details.module').then( m => m.ContactDetailsPageModule),
+    loadChildren: () => import('./pages/contact-details/contact-details.module').then( m => m.ContactDetailsPageModule),
     canActivate: [LoggedInGuardGuard]
   },
 ];
