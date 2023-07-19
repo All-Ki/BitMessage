@@ -10,10 +10,11 @@ export class LoggedInGuardGuard {
 
   constructor(private userService: UsersService,private router: Router) {}
 
-  canActivate(
+  async canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(!this.userService.isLoggedIn()){
+    state: RouterStateSnapshot): Promise<boolean | UrlTree | Observable<boolean | UrlTree>> {
+      if(!await this.userService.isLoggedIn()){
+        console.log("not logged in")
         this.router.navigate(['/login']);
         return false;
       }
