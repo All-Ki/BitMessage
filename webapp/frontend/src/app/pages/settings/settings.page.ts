@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from '../constants';
+import { CONSTANTS } from '../../constants';
 
 @Component({
   selector: 'app-settings',

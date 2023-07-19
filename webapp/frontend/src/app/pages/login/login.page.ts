@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { UsersService } from '../api/users/users.service';
+import { UsersService } from '../../api/users/users.service';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from '../constants';
+import { CONSTANTS } from '../../constants';
 
 @Component({
   selector: 'app-login',
