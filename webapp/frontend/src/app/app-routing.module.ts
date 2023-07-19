@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: CONSTANTS.login_page,
     pathMatch: 'full'
   },
   {
@@ -29,11 +29,20 @@ const routes: Routes = [
   },
   {
     path: CONSTANTS.new_discussion_page,
-    loadChildren: () => import('./new-discussion/new-discussion.module').then( m => m.NewDiscussionPageModule)
+    loadChildren: () => import('./new-discussion/new-discussion.module').then( m => m.NewDiscussionPageModule),
+    canActivate: [LoggedInGuardGuard]
+
   },
   {
     path: CONSTANTS.contacts_list_page,
-    loadChildren: () => import('./contacts-list/contacts-list.module').then( m => m.ContactsListPageModule)
+    loadChildren: () => import('./contacts-list/contacts-list.module').then( m => m.ContactsListPageModule),
+    canActivate: [LoggedInGuardGuard]
+
+  },
+  {
+    path: CONSTANTS.contact_details_page + '/:id',
+    loadChildren: () => import('./contact-details/contact-details.module').then( m => m.ContactDetailsPageModule),
+    canActivate: [LoggedInGuardGuard]
   },
 ];
 
