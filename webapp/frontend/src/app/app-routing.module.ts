@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoggedInGuardGuard } from './guards/logged-in-guard.guard';
+import { CONSTANTS } from './constants';
 const routes: Routes = [
   {
-    path: 'chatsList',
+    path: CONSTANTS.discussion_list_page,
     loadChildren: () => import('./discussion-list/discussion-list.module').then( m => m.DiscussionListPageModule),
     canActivate: [LoggedInGuardGuard]
   },
   {
-    path: 'chat/:id',
+    path: CONSTANTS.chat_page,
     loadChildren: () => import('./discussion-list/chat/chat.module').then( m => m.ChatPageModule),
     canActivate: [LoggedInGuardGuard]
   },
@@ -18,11 +19,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'login',
+    path: CONSTANTS.login_page,
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'settings',
+    path: CONSTANTS.settings_page,
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule),
    canActivate: [LoggedInGuardGuard]
   },

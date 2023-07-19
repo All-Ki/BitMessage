@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { CONSTANTS } from '../constants';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(public navCtrl: NavController,) { }
 
-  ngOnInit() {
+  goToDiscussionList(){
+    this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
   }
-
+  ngOnInit() {}
 }
