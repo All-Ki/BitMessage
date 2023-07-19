@@ -49,6 +49,12 @@ export class UsersService {
         public_key: acc.address,
         encrypted_message: signed,
       });
+      
+      if(res.status != 200){
+        console.log("Error");
+        return false;
+      }
+
       this.private_key = private_key;
       this.wallet = acc;
       this.public_key = acc.address;
@@ -56,10 +62,18 @@ export class UsersService {
       //console.log(await this.storage.get('wallet'))
       // console.log('login ' + private_key);
       // console.log(this.isLoggedIn())
+      
       return true;
     } catch (e) {
       console.log(e);
       return false;
     }
+  }
+
+  logout(){
+    this.private_key = "";
+    this.wallet = null;
+    this.public_key = "";
+    this.storage.set('wallet', null);
   }
 }

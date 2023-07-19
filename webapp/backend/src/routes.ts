@@ -1,5 +1,6 @@
 
 import {User, Message} from './models'
+import * as Accounts from 'web3-eth-accounts';
 
 export function create_routes(app){
 	app.get('/', (req, res) => res.send('ma bite'))
@@ -63,7 +64,14 @@ export function create_routes(app){
 		console.log("Public Key:" + public_key);
 		console.log("Encrypted Message:" + encrypted_message);
 		
-		res.send('OK')
+		var verifier = Accounts.recover('Login from ' + public_key , encrypted_message.signature);
+
+		if (verifier === public_key){
+			res.status(200).json({ success:true, message: 'Login successful' });
+		} else {
+			res.status(401).json({ success: false, message: 'Invalid signature or key'});
+		}
+
 	})
 
 	return app;
