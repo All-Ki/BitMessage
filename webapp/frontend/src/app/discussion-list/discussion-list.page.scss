@@ -1,4 +1,17 @@
-.discussion-list-item{
-	border-bottom: 1px solid #e0e0e0;
-	margin-bottom: 5px;
+.discussion-list-item {
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 5px;
+}
+.button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  margin-left: 0.5px;
+  margin-right: 0.5px;
+  margin-top: 0.5px;
+  margin-bottom: 0.5px;
+  font-size: 2rem;
 }

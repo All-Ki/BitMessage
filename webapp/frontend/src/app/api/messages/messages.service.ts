@@ -38,6 +38,8 @@ export class MessagesService {
   }
   async getDiscussions() : Promise<any>{
     const user = this.userSvc.getCurrentUser();
+    console.log('getDiscussions');
+    console.log(user);
     const res = await axios.get(environment.url + '/discussions/' + user);
     return res.data;
   }

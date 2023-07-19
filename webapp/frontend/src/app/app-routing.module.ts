@@ -9,7 +9,7 @@ const routes: Routes = [
     canActivate: [LoggedInGuardGuard]
   },
   {
-    path: CONSTANTS.chat_page,
+    path: CONSTANTS.chat_page + '/:id',
     loadChildren: () => import('./discussion-list/chat/chat.module').then( m => m.ChatPageModule),
     canActivate: [LoggedInGuardGuard]
   },
@@ -26,6 +26,14 @@ const routes: Routes = [
     path: CONSTANTS.settings_page,
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule),
    canActivate: [LoggedInGuardGuard]
+  },
+  {
+    path: CONSTANTS.new_discussion_page,
+    loadChildren: () => import('./new-discussion/new-discussion.module').then( m => m.NewDiscussionPageModule)
+  },
+  {
+    path: CONSTANTS.contacts_list_page,
+    loadChildren: () => import('./contacts-list/contacts-list.module').then( m => m.ContactsListPageModule)
   },
 ];
 

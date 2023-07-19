@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { MessagesService } from '../api/messages/messages.service';
 
 @Component({
   selector: 'app-discussion-list',
@@ -10,7 +11,7 @@ export class DiscussionListPage implements OnInit {
   public discussions : any = [];
 
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private msgSvc: MessagesService) {
     this.discussions = [
       {
         id: 1,
@@ -26,7 +27,8 @@ export class DiscussionListPage implements OnInit {
       }]
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.discussions = await this.msgSvc.getDiscussions();
   }
 
 }

@@ -29,7 +29,7 @@ export class UsersService {
     this.isInitialized = true;
   }
   getCurrentUser(): number {
-    return 1;
+    return this.wallet.address;
   }
 
   public async isLoggedIn(): Promise<boolean> {

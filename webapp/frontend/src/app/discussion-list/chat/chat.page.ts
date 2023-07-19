@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MessagesService, Message } from 'src/app/api/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
+import { CONSTANTS } from 'src/app/constants';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +15,7 @@ export class ChatPage implements OnInit {
   discussion_id = 0;
   goToDiscussionList(){
     console.log('goToDiscussionList');
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
   }
 
   constructor(public navCtrl: NavController, private msgSvc: MessagesService,private route: ActivatedRoute) {
