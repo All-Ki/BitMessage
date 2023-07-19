@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoggedInGuardGuard } from './guards/logged-in-guard.guard';
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'chatsList',
     loadChildren: () => import('./discussion-list/discussion-list.module').then( m => m.DiscussionListPageModule),
     canActivate: [LoggedInGuardGuard]
   },
