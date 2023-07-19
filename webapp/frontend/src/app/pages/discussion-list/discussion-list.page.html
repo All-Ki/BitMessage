@@ -7,15 +7,15 @@
   <ion-content class="ion-padding">This is the menu content.</ion-content>
 </ion-menu>
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Discussion List</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<div  id="main-content" class="ion-page">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content>
   <ion-list>
     <ion-item class="discussion-list-item" *ngFor="let discussion of discussions" (click)="goToChat(discussion)">
@@ -28,6 +28,7 @@
       </ion-label>
     </ion-item>
   </ion-list>
-<button class="button"> <ion-icon name="chatbubble-ellipses-outline"></ion-icon></button>
+<button class="new-discussion-button"> <ion-icon name="chatbubble-ellipses-outline"></ion-icon></button>
 
 </ion-content>
+</div>
