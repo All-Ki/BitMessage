@@ -44,6 +44,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/contact-details/contact-details.module').then( m => m.ContactDetailsPageModule),
     canActivate: [LoggedInGuardGuard]
   },
+  {
+    path: CONSTANTS.new_contact_page,
+    loadChildren: () => import('./pages/add-contact/add-contact.module').then( m => m.AddContactPageModule),
+    canActivate: [LoggedInGuardGuard]
+  },
 ];
 
 @NgModule({
