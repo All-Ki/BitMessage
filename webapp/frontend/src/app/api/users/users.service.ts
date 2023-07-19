@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as Accounts from 'web3-eth-accounts';
 import { ApiService } from '../api/api.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
-  constructor() {
-   }
 
   getCurrentUser() : number {
     return 1;
@@ -15,6 +13,10 @@ export class UsersService {
   private private_key: string = "";
   private wallet: any;
   private accounts: any;
+
+  constructor(private router: Router) {
+
+  }
   public isLoggedIn() : boolean {
     return this.wallet != null;
   }
@@ -32,9 +34,13 @@ export class UsersService {
       console.log(acc)
     */
       console.log("recovered : " + Accounts.recover('Login from ' + acc.address , signed.signature))
-      const res = await ApiService.post('/login',{public_key:acc.address, encrypted_message:signed});
+
+      const res = await ApiService.post('/login',{public_key: acc.address, encrypted_message:signed});
       this.wallet = acc;
       console.log('login ' + private_key);
+
+      this.router.navigate(['../messages/messages.service']);
+
       return true;
     }
     catch(e){
