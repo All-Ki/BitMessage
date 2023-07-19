@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { DiscussionListPageRoutingModule } from './discussion-list-routing.module';
 
 import { DiscussionListPage } from './discussion-list.page';
-import { DiscussionListComponentModule } from './discussion-list-component/discussion-list-component.module';
 
 
 @NgModule({
@@ -16,7 +15,6 @@ import { DiscussionListComponentModule } from './discussion-list-component/discu
     FormsModule,
     IonicModule,
     DiscussionListPageRoutingModule,
-    DiscussionListComponentModule
   ],
   declarations: [DiscussionListPage]
 })

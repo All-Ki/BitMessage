@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
+import { CONSTANTS } from 'src/app/constants';
 
 @Component({
   selector: 'app-discussion-list',
@@ -10,7 +11,11 @@ import { MessagesService } from 'src/app/api/messages/messages.service';
 export class DiscussionListPage implements OnInit {
   public discussions : any = [];
 
-
+  public goToChat(discussion : any){
+    console.log('goToChatsss');
+    console.log(discussion);
+    this.navCtrl.navigateForward(CONSTANTS.chat_page+"/"+discussion.id);
+  }
   constructor(public navCtrl: NavController, private msgSvc: MessagesService) {
     this.discussions = [
       {
