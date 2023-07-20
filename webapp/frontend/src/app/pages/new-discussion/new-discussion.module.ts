@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NewDiscussionPageRoutingModule } from './new-discussion-routing.module';
 
 import { NewDiscussionPage } from './new-discussion.page';
+import { ContactListComponent } from 'src/app/components/contact-list/contact-list.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewDiscussionPageRoutingModule
+    NewDiscussionPageRoutingModule,
+    ContactListComponent
   ],
   declarations: [NewDiscussionPage]
 })

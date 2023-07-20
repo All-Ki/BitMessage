@@ -8,9 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item>
+  <ion-item class="new-discussion-input">
     <ion-label position="floating">Address</ion-label>
-    <ion-input [(ngModel)]="newDiscussionTarget"></ion-input>
+    <ion-input [(ngModel)]="newDiscussionTarget" (ngModelChange)="onTextChange($event)"></ion-input>
     <ion-button (click)="createDiscussion()" slot="end"> <ion-icon name="add-outline"></ion-icon> </ion-button>
   </ion-item>
+  <app-contact-list [contacts]="filteredContacts" (contactSelected)="onContactSelected($event)"></app-contact-list>
+
 </ion-content>
