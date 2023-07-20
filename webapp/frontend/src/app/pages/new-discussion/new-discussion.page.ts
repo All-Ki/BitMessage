@@ -12,9 +12,10 @@ export class NewDiscussionPage implements OnInit {
 
   public  contacts: Contact[] = [];
   public filteredContacts: Contact[] = [];
+  public newDiscussionTarget: string = '';
+
   constructor(private navCtrl: NavController, private contactsSvc: ContactsService) { }
 
-  public newDiscussionTarget: string = '';
   goToDiscussionList(){
     this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
   }
@@ -26,8 +27,12 @@ export class NewDiscussionPage implements OnInit {
     this.navCtrl.navigateForward(CONSTANTS.chat_page + '/' + this.newDiscussionTarget);
   }
   onTextChange(event: any){
+    if(event == ''){
+      this.filteredContacts = this.contacts;
+      return;
+    }
     this.filteredContacts = this.contacts.filter((contact) => {
-      return contact.name.toLowerCase().includes(event.toLowerCase());
+      return contact.name.toLowerCase().includes(event.toLowerCase()) || contact.public_key.toLowerCase().includes(event.toLowerCase());
     });
   }
   async ngOnInit() {
