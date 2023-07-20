@@ -42,12 +42,9 @@ export class MessagesService extends ServiceWithInit{
 
   }
   async saveMessages(){
-    console.log('saveMessages');
-    console.log(this.Discussions);
     await this.storage.set('discussions', this.Discussions);
   }
   async postMessage(text: string, receiver: string) {
-    console.log('postMessage');
     const sender = this.userSvc.getCurrentUser();
     const msg = {
       text: text,
@@ -68,15 +65,10 @@ export class MessagesService extends ServiceWithInit{
 
   async getMessagesFrom(from : string) : Promise<Message[]>{
     await this.WaitUntilReady();
-    const receiver = this.userSvc.getCurrentUser();
-    const res = await axios.get(environment.url + '/messages/' + receiver + '/' + from);
+    const res = await axios.get(environment.url + '/messages/' + this.current_user + '/' + from);
     let msgs = res.data;
-    console.log("from server");
-    console.log(msgs);
     msgs = msgs.filter((msg: any) => { return msg.sender == from});
     let messages = this.Discussions.get(from) || [];
-    console.log('messages');
-    console.log(messages);
     msgs.forEach((msg: any )=> {
       if(messages.find(m => m.client_id == msg.client_id) == null){
         messages.push(msg);
@@ -109,8 +101,6 @@ export class MessagesService extends ServiceWithInit{
     await this.WaitUntilReady();
     let discussions : Discussion[] = [];
     for(let [key, value] of this.Discussions){
-      console.log(key);
-      console.log(value);
       if(value.length == 0){
         continue;
       }

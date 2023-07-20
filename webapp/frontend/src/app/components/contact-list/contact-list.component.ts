@@ -20,7 +20,7 @@ export class ContactListComponent   {
     this.contactSelected.emit(contact);
   }
   OnChanges(){
-    console.log(this.contacts);
+    //console.log(this.contacts);
   }
 
 }
