@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ContactsListPage } from '../contacts-list/contacts-list.page';
 import { CONSTANTS } from 'src/app/constants';
-import { Contact } from 'src/app/api/contacts/contacts.service';
+import { Contact, ContactsService } from 'src/app/api/contacts/contacts.service';
 @Component({
   selector: 'app-add-contact',
   templateUrl: './add-contact.page.html',
@@ -16,16 +16,32 @@ export class AddContactPage implements OnInit {
     networks: [],
   };
 
-  constructor(private navCtrl: NavController) { }
+  predefinedNetworks: string[] = ["BitMessage", "Ethereum", "Bitcoin"];
+  selectedNetworks: string[] = [];
+
+  constructor(private navCtrl: NavController, private contactsService: ContactsService) { }
 
   ngOnInit() {
   }
   goToContactList() {
     this.navCtrl.navigateForward(CONSTANTS.contacts_list_page);
   }
+  isNetworkSelected(network: string): boolean {
+    return this.selectedNetworks.includes(network);
+  }
   addContact() {
+    const contact: Contact = {
+      name: this.contact.name,
+      public_key: this.contact.publicKey,
+      networks: this.selectedNetworks,
+    }
+
     if (this.contact.name.trim() === "" || this.contact.publicKey.trim() === ""){
-      console.log("Please")
+      console.log("Please complete all required fields");
+    } 
+    // TODO: comparer la clef entrée avec les clefs existantes pour savoir si c'est une clef valide
+    else {
+      this.contactsService.addContact(contact);
     }
   }
 }
