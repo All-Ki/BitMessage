@@ -10,20 +10,19 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item>
-      <ion-label position="floating">Name</ion-label>
+      <ion-label position="floating">Name *</ion-label>
       <ion-input [(ngModel)]="contact.name" name="name" type="text" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Public key</ion-label>
+      <ion-label position="floating">Public key *</ion-label>
       <ion-input [(ngModel)]="contact.publicKey" name="publicKey" type="text" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Social network</ion-label>
       <ion-list>
-        <ion-item *ngFor="let network of contact.networks; let i = index">
-          <ion-label>{{ network.name }}</ion-label>
-          <ion-input [(ngModel)]="contact.networks[i].username" name="networks[i].usermane" type="text"></ion-input>
-        </ion-item>
+        
+        <ion-select placeholder="Network" class="network-select" [(ngModel)]="contact.networks" type="text" [multiple]="true">
+          <ion-select-option *ngFor="let network of predefinedNetworks" [value]="network">{{network}}</ion-select-option>
+        </ion-select>
       </ion-list>
     </ion-item>
   </ion-list>
