@@ -12,9 +12,8 @@ export class DiscussionListPage implements OnInit {
   public discussions : any = [];
 
   public goToChat(discussion : any){
-    console.log('goToChatsss');
-    console.log(discussion);
-    this.navCtrl.navigateForward(CONSTANTS.chat_page+"/"+discussion.id);
+
+    this.navCtrl.navigateForward(CONSTANTS.chat_page+"/"+discussion.other);
   }
   public goTo(url : string){
     this.navCtrl.navigateForward(url);
@@ -27,25 +26,14 @@ export class DiscussionListPage implements OnInit {
 
 
   constructor(public navCtrl: NavController, private msgSvc: MessagesService, private userSvc: UsersService) {
-    this.discussions = [
-      {
-        id: 1,
-        name : 'Johnny',
-        lastMessage : 'Hello',
-        date : '2019-01-01',
-      },
-      {
-        id: 2,
-        name : 'Jane',
-        lastMessage : 'Hi',
-        date : '2019-01-01',
-      }]
+
     this.userAddress = this.userSvc.getCurrentUser();
 
   }
 
   async ngOnInit() {
     this.discussions = await this.msgSvc.getDiscussions();
+    console.log(this.discussions);
   }
 
   logout(){

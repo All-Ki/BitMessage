@@ -27,6 +27,7 @@ export class UsersService extends ServiceWithInit {
       }
     }
   }
+
   getCurrentUser(): string {
     return this.public_key;
   }
@@ -71,6 +72,6 @@ export class UsersService extends ServiceWithInit {
     this.private_key = "";
     this.wallet = null;
     this.public_key = "";
-    this.storage.set('wallet', null);
+    this.storage.clear();
   }
 }

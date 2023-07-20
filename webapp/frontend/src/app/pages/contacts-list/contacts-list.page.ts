@@ -18,9 +18,10 @@ export class ContactsListPage implements OnInit {
   }
   async ngOnInit() {
     this.contacts = await this.contactsService.getContacts();
+    console.log(this.contacts);
   }
 
-  goToContactDetails(contact: Contact) {
+  goToContactDetails(contact: any) {
     this.navCtrl.navigateForward(CONSTANTS.contact_details_page + '/' + contact.public_key)
   }
   addNewContact(){

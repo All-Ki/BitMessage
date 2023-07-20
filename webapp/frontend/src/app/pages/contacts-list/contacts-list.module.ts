@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ContactsListPageRoutingModule } from './contacts-list-routing.module';
 
 import { ContactsListPage } from './contacts-list.page';
+import { ContactListComponent } from 'src/app/components/contact-list/contact-list.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactsListPageRoutingModule
+    ContactsListPageRoutingModule,
+    ContactListComponent
   ],
   declarations: [ContactsListPage]
 })

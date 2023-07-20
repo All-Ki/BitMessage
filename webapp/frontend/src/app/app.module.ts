@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Drivers } from '@ionic/storage';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
 
 @NgModule({
   declarations: [AppComponent],

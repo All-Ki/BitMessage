@@ -1,0 +1,11 @@
+<ion-list>
+  <ion-item class="contact-list-item pointerOnHover" *ngFor="let contact of contacts" (click)="onContactSelected(contact)">
+    <ion-avatar slot="start">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-label>
+      <h2>{{ contact.name }}</h2>
+      <p>{{ contact.public_key }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>

@@ -13,6 +13,10 @@ export class ContactsService extends ServiceWithInit {
 
 
   Contacts: Map<string,Contact> = new Map<string,Contact>();
+  async saveContacts(){
+    await this.storage.set('contacts', this.Contacts);
+  }
+
   constructor(private storage: StorageService) {
     super(storage);
     for(let i = 0; i < 10; i++){
@@ -21,7 +25,9 @@ export class ContactsService extends ServiceWithInit {
   }
 
 
-  override async OnStorageReady() {}
+  override async OnStorageReady() {
+   // this.Contacts = await this.storage.get('contacts') || new Map<string,Contact>();
+  }
   public async getContacts(): Promise<Contact[]> {
     await this.WaitUntilReady();
     return [...this.Contacts.values()];
@@ -32,6 +38,8 @@ export class ContactsService extends ServiceWithInit {
       return false;
     };
     this.Contacts.set(public_key, {name: name, public_key: public_key, profile_picture: profile_picture});
+    await this.saveContacts();
+
     return true;
   }
 }

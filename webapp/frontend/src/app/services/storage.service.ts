@@ -16,7 +16,9 @@ export class StorageService {
   constructor(private storage: Storage) {
     this.init();
   }
-
+  public clear() {
+    this.storage.clear();
+  }
   async init() {
     // If using, define drivers here: await this.storage.defineDriver(/*...*/);
     const storage = await this.storage.create();

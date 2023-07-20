@@ -6,14 +6,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #msgList>
   <div class="container"  #list [scrollTop]="list.scrollHeight" >
     <div class="stream" >
       <ion-item lines="none" *ngFor="let message of messages; let i=index">
-        <ion-avatar *ngIf="i%2"  slot="start"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
-        <ion-badge text-wrap slot="start" color="light" *ngIf="i%2">{{ message.text }}  </ion-badge>
-        <ion-badge text-wrap slot="end" color="primary" *ngIf="!(i%2)">  {{ message.text }}</ion-badge>
-        <ion-avatar *ngIf="!(i%2)" slot="end"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+        <ion-avatar *ngIf="message.from === discussion_id"  slot="start"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+        <ion-badge text-wrap slot="start" color="light" *ngIf="message.from === discussion_id">{{ message.text }}  </ion-badge>
+        <ion-badge text-wrap slot="end" color="primary" *ngIf="message.from !== discussion_id">  {{ message.text }}</ion-badge>
+        <ion-avatar *ngIf="message.from !== discussion_id" slot="end"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
 
 
       </ion-item>

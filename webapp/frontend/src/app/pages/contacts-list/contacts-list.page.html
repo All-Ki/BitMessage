@@ -2,24 +2,14 @@
   <ion-toolbar>
     <ion-item>
       <ion-title>Contacts</ion-title>
-      <ion-button  (click)="goToDiscussionList()" slot="start"> 
-        <ion-icon name="arrow-back-outline"></ion-icon> 
+      <ion-button  (click)="goToDiscussionList()" slot="start">
+        <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item class="contact-list-item pointerOnHover" *ngFor="let contact of contacts" (click)="goToContactDetails(contact)">
-      <ion-avatar slot="start">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ contact.name }}</h2>
-        <p>{{ contact.public_key }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+<app-contact-list [contacts]="contacts" (contactSelected)="goToContactDetails($event)"></app-contact-list>
 <button class="new-contact-button" (click)="addNewContact()"> <ion-icon name="person-add"></ion-icon></button>
 </ion-content>
