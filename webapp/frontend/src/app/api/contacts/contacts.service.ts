@@ -4,8 +4,8 @@ import { StorageService } from 'src/app/services/storage.service';
 export type Contact = {
   name: string;
   public_key: string;
-  profile_picture: string;
-  networks: string[];
+  profile_picture?: string;
+  networks?: string[];
 }
 @Injectable({
   providedIn: 'root'
