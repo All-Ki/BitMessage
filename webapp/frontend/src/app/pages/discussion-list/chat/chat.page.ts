@@ -12,7 +12,7 @@ import { CONSTANTS } from 'src/app/constants';
 export class ChatPage implements OnInit {
 
   public messages : any = [];
-  discussion_id = 0;
+  discussion_id = "";
   goToDiscussionList(){
     console.log('goToDiscussionList');
     this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
@@ -66,12 +66,13 @@ export class ChatPage implements OnInit {
     this.messages.push(msg);
     this.currentMessage = '';
     this.currentId++;
-    this.msgSvc.postMessage(msg.text, 1);
+    this.msgSvc.postMessage(msg.text, this.discussion_id);
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log(params);
+      this.discussion_id = params['id'];
     })
   }
 

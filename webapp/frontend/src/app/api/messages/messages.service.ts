@@ -6,10 +6,9 @@ import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { StorageService } from 'src/app/services/storage.service';
 
 export class Message {
-  id: number = 0;
   text: string = '' ;
-  sender: number = 0 ;
-  receiver: number = 0;
+  sender: string = "" ;
+  receiver: string = "";
   date: Date = new Date();
 }
 
@@ -23,7 +22,8 @@ export class MessagesService extends ServiceWithInit{
   }
 
   Messages: Message[] = [];
-  async postMessage(text: string, receiver: number) {
+  Discussions: Map<string, Message[]> = new Map<string, Message[]>();
+  async postMessage(text: string, receiver: string) {
     const sender = this.userSvc.getCurrentUser();
     const msg = {
       text: text,
@@ -32,6 +32,8 @@ export class MessagesService extends ServiceWithInit{
       date: new Date(),
     }
     await axios.post(environment.url + '/messages', msg);
+    this.Discussions.get(receiver.toString())?.push(msg);
+
   }
 
   async getMessagesFrom(from : string) : Promise<any>{

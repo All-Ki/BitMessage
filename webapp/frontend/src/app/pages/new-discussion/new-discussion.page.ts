@@ -10,9 +10,19 @@ import { CONSTANTS } from 'src/app/constants';
 export class NewDiscussionPage implements OnInit {
 
   constructor(private navCtrl: NavController) { }
+
+  public newDiscussionTarget: string = '';
   goToDiscussionList(){
     this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
   }
+  createDiscussion(){
+    if(this.newDiscussionTarget == ''){
+      return;
+    }
+
+    this.navCtrl.navigateForward(CONSTANTS.chat_page + '/' + this.newDiscussionTarget);
+  }
+
   ngOnInit() {
   }
 
