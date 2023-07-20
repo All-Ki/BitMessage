@@ -12,6 +12,8 @@
 	  "skipDefaultLibCheck": true,
 	  "emitDecoratorMetadata": true,
 	  "experimentalDecorators": true,
+	  "declaration": true,
+	  "declarationMap": true,
 	  "noImplicitAny": false,
 	  "outDir": "./dist",
 	  "strictPropertyInitialization": false,
@@ -22,5 +24,8 @@
 	},
 	"ts-node": {
 	  "require": ["tsconfig-paths/register"]
-	}
+	},
+	"references": [{
+		"path": "../common"
+	  }]
   }

@@ -8,6 +8,8 @@ export class CONSTANTS{
 	public static readonly new_contact_page = 'new-contact';
 	public static readonly new_discussion_page = 'new-discussion';
 
+
+
 	public static readonly Networks =[
 		{
 			name: 'BitMessage',

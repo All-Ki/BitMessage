@@ -74,6 +74,14 @@ export function create_routes(app){
 		}
 
 	})
+	app.get('/user_settings', async (req, res) => {
+		const public_key = req.body.public_key;
+		const message = req.body.message;
+		const settings = {};
+
+
+		res.json(settings)
+	})
 
 	return app;
 }

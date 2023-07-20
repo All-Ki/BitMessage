@@ -7,6 +7,15 @@ import { NavController } from '@ionic/angular';
 import { CONSTANTS } from 'src/app/constants';
 import { Router } from '@angular/router';
 
+export class UserSettings {
+  public_key: string = '';
+  theme: string = 'dark';
+  preferred_network: string = 'BitMessage';
+  backup_contacts: boolean = true;
+  backup_messages: boolean = true;
+  backup_network: string = 'BitMessage';
+}
+
 @Injectable({
   providedIn: 'root',
 })

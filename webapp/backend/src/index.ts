@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { create_routes } from './routes'
+import {CONSTANTS} from '../../common/constants'
 const PORT = 5656
 /**
  * On créé une nouvelle "application" express

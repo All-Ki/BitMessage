@@ -43,4 +43,39 @@ export const User = sequelize.define('User', {
 	},
 })
 
+export const UserSettings = sequelize.define('UserSettings', {
+	public_key: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		allowNull: false,
+		},
+	theme: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		defaultValue: 'dark'
+	},
+	preferred_network: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		defaultValue: 'BitMessage'
+	},
+	backup_contacts: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		defaultValue: true
+	},
+	backup_messages: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		defaultValue: true
+
+	},
+	backup_network: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		defaultValue: 'BitMessage'
+	},
+
+})
+
 sequelize.sync({ force: true })
