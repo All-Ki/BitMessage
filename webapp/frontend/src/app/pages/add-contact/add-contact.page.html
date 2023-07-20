@@ -18,9 +18,8 @@
       <ion-input [(ngModel)]="contact.publicKey" name="publicKey" type="text" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-list>
-        
-        <ion-select placeholder="Network" class="network-select" [(ngModel)]="contact.networks" type="text" [multiple]="true">
+      <ion-list class="network-selector-holder">
+        <ion-select placeholder="Network" class="network-selector" [(ngModel)]="contact.networks" type="text" [multiple]="true">
           <ion-select-option *ngFor="let network of predefinedNetworks" [value]="network">{{network}}</ion-select-option>
         </ion-select>
       </ion-list>
