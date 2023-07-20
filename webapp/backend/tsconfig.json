@@ -19,8 +19,9 @@
 	  "strictPropertyInitialization": false,
 	  "paths": {
 		"~/*": ["./src/*"],
-		"~~/*": ["./*"]
-	  }
+		"~~/*": ["./*"],
+		":common/*": ["../common/*"]
+	  },
 	},
 	"ts-node": {
 	  "require": ["tsconfig-paths/register"]

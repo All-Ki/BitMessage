@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { create_routes } from './routes'
-import {CONSTANTS} from '../../common/constants'
+import {CONSTANTS} from ':common/constants'
 const PORT = 5656
 /**
  * On créé une nouvelle "application" express
@@ -27,4 +27,4 @@ create_routes(app);
 /**
  * On demande à Express d'ecouter les requêtes sur le port défini dans la config
  */
-app.listen(PORT, () => console.log('Silence, ça tourne.'))
+app.listen(PORT, () => console.log('Silence, ça tourne. ' + CONSTANTS.Networks[0].url))
