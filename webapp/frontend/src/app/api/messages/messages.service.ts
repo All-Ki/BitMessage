@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { UsersService } from '../users/users.service';
 import { environment } from 'src/environments/environment';
 import axios from 'axios';
+import { ServiceWithInit } from 'src/app/services/service-with-init';
+import { StorageService } from 'src/app/services/storage.service';
 
 export class Message {
   id: number = 0;
@@ -14,12 +16,13 @@ export class Message {
 @Injectable({
   providedIn: 'root'
 })
+export class MessagesService extends ServiceWithInit{
 
-export class MessagesService {
+  constructor(private userSvc: UsersService, private storage: StorageService) {
+    super(storage);
+  }
 
-  constructor(private userSvc: UsersService) { }
-
-
+  Messages: Message[] = [];
   async postMessage(text: string, receiver: number) {
     const sender = this.userSvc.getCurrentUser();
     const msg = {

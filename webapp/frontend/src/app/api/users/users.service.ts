@@ -2,40 +2,32 @@ import { Injectable } from '@angular/core';
 import * as Accounts from 'web3-eth-accounts';
 import { ApiService } from '../api/api.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ServiceWithInit } from 'src/app/services/service-with-init';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class UsersService extends ServiceWithInit {
   private private_key: string = '';
   private wallet: any;
   private public_key: string = '';
   private accounts: any;
-  private isInitialized: boolean = false;
-  async waitForReady() {
-    while (!this.isInitialized) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
-  }
 
   constructor(private storage: StorageService) {
-    this.init();
+    super(storage);
   }
-  async init() {
-    await this.storage.waitForReady();
+  override async OnStorageReady() {
     var pk = await this.storage.get('wallet');
     if (pk != null) {
       await this.login(pk);
     }
-    this.isInitialized = true;
   }
   getCurrentUser(): string {
     return this.public_key;
   }
 
   public async isLoggedIn(): Promise<boolean> {
-    await this.storage.waitForReady();
-    await this.waitForReady();
+    await this.WaitUntilReady();
     return this.wallet != null;
   }
 
@@ -49,7 +41,7 @@ export class UsersService {
         public_key: acc.address,
         encrypted_message: signed,
       });
-      
+
       if(res.status != 200){
         console.log("Error");
         return false;
@@ -62,7 +54,7 @@ export class UsersService {
       //console.log(await this.storage.get('wallet'))
       // console.log('login ' + private_key);
       // console.log(this.isLoggedIn())
-      
+
       return true;
     } catch (e) {
       console.log(e);
