@@ -1,0 +1,20 @@
+.contact-list-item {
+    border-top: 1px solid #e0e0e06e;
+    padding: 5px;
+}
+.contact-list-item:last-child {
+    border-bottom: 1px solid #e0e0e06e;
+}
+.new-contact-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    margin-left: 0.5px;
+    margin-right: 0.5px;
+    margin-top: 0.5px;
+    margin-bottom: 0.5px;
+    font-size: 2rem;
+}
