@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/services/storage.service';
   providedIn: 'root'
 })
 
-type Contact = {
+export type Contact = {
   name: string;
   public_key: string;
   profile_picture: string;
