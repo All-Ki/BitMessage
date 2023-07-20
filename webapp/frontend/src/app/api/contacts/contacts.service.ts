@@ -34,11 +34,11 @@ export class ContactsService extends ServiceWithInit {
     return [...this.Contacts.values()];
   }
 
-  public async addContact(name: string, public_key: string, profile_picture:string) : Promise<boolean> {
-    if(this.Contacts.get(public_key) != null){
+  public async addContact(contact:Contact) : Promise<boolean> {
+    if(this.Contacts.get(contact.public_key) != null){
       return false;
     };
-    this.Contacts.set(public_key, {name: name, public_key: public_key, profile_picture: profile_picture});
+    this.Contacts.set(contact.public_key,contact);
     await this.saveContacts();
 
     return true;
