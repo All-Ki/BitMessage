@@ -25,8 +25,8 @@ export function create_routes(app){
 		console.log(req.body);
 		const message : NewMessage = req.body;
 		const builtMessage = Message.build(message);
-		await builtMessage.save();
-		console.log(message);
+		let ret = await builtMessage.save();
+		console.log(ret);
 		res.send(message);
 	})
 
@@ -42,6 +42,7 @@ export function create_routes(app){
 				['date', 'DESC'],
 			],
 		})
+
 		res.send(msgs);
 	})
 	app.get('/discussions/:user', async (req, res) => {
@@ -63,7 +64,7 @@ export function create_routes(app){
 
 		console.log("Public Key:" + public_key);
 		console.log("Encrypted Message:" + encrypted_message);
-		
+
 		var verifier = Accounts.recover('Login from ' + public_key , encrypted_message.signature);
 
 		if (verifier === public_key){

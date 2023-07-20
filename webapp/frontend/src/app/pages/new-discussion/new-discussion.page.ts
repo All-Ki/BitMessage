@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Contact, ContactsService } from 'src/app/api/contacts/contacts.service';
 import { CONSTANTS } from 'src/app/constants';
 
 @Component({
@@ -9,7 +10,8 @@ import { CONSTANTS } from 'src/app/constants';
 })
 export class NewDiscussionPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  private contacts: Contact[] = [];
+  constructor(private navCtrl: NavController, private contactsSvc: ContactsService) { }
 
   public newDiscussionTarget: string = '';
   goToDiscussionList(){

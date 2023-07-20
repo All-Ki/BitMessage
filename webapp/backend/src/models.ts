@@ -8,6 +8,10 @@ export const Message = sequelize.define('Message', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
+	client_id:{
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
 	text: {
 		type: DataTypes.STRING,
 		allowNull: false,
