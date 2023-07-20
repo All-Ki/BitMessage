@@ -5,6 +5,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { NavController } from '@ionic/angular';
 import { CONSTANTS } from 'src/app/constants';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +16,13 @@ export class UsersService extends ServiceWithInit {
   private public_key: string = '';
   private accounts: any;
 
-  constructor(private storage: StorageService, private navCtrl: NavController) {
+  constructor(private storage: StorageService, private navCtrl: NavController, private router:Router) {
     super(storage);
   }
   override async OnStorageReady() {
     var pk = await this.storage.get('wallet');
     if (pk != null) {
-      if(await this.login(pk)){
+      if(await this.login(pk) && this.router.url == '/login'){
         this.navCtrl.navigateRoot(CONSTANTS.discussion_list_page);
       }
     }
