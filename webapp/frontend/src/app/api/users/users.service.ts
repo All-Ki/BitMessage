@@ -3,6 +3,8 @@ import * as Accounts from 'web3-eth-accounts';
 import { ApiService } from '../api/api.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
+import { NavController } from '@ionic/angular';
+import { CONSTANTS } from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +15,15 @@ export class UsersService extends ServiceWithInit {
   private public_key: string = '';
   private accounts: any;
 
-  constructor(private storage: StorageService) {
+  constructor(private storage: StorageService, private navCtrl: NavController) {
     super(storage);
   }
   override async OnStorageReady() {
     var pk = await this.storage.get('wallet');
     if (pk != null) {
-      await this.login(pk);
+      if(await this.login(pk)){
+        this.navCtrl.navigateRoot(CONSTANTS.discussion_list_page);
+      }
     }
   }
   getCurrentUser(): string {
