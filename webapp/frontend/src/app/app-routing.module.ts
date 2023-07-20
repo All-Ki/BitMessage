@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: CONSTANTS.chat_page + '/:id',
-    loadChildren: () => import('./pages/discussion-list/chat/chat.module').then( m => m.ChatPageModule),
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule),
     canActivate: [LoggedInGuardGuard]
   },
   {

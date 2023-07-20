@@ -29,8 +29,9 @@ export class ChatPage implements OnInit {
   async sendMessage(){
     console.log('sendMessage');
 
-    this.currentMessage = '';
+
     await this.msgSvc.postMessage(this.currentMessage, this.discussion_id);
+    this.currentMessage = '';
     this.content.scrollToBottom(0);
   }
 
