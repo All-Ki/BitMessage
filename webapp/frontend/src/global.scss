@@ -45,4 +45,7 @@
 }
 ion-list{
 	padding-bottom: 0 !important;
+	ion-item:last-child{
+		margin-bottom: 0 !important;
+	}
 }
