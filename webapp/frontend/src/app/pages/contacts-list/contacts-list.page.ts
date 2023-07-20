@@ -15,5 +15,5 @@ export class ContactsListPage implements OnInit {
   }
   ngOnInit() {
   }
-
+// Note de connard, ça sert à rien btw
 }
