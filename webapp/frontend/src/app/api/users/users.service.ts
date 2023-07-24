@@ -4,17 +4,9 @@ import { ApiService } from '../api/api.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from 'src/app/constants';
+import { CONSTANTS } from ':common/constants';
 import { Router } from '@angular/router';
-
-export class UserSettings {
-  public_key: string = '';
-  theme: string = 'dark';
-  preferred_network: string = 'BitMessage';
-  backup_contacts: boolean = true;
-  backup_messages: boolean = true;
-  backup_network: string = 'BitMessage';
-}
+import { UserSettings } from ':common/models';
 
 @Injectable({
   providedIn: 'root',

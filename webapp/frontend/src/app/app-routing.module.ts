@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoggedInGuardGuard } from './guards/logged-in-guard.guard';
-import { CONSTANTS } from './constants';
+import { CONSTANTS } from ':common/constants';
 const routes: Routes = [
   {
     path: CONSTANTS.discussion_list_page,

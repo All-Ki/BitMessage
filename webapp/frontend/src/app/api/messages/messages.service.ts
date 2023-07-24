@@ -5,20 +5,8 @@ import axios from 'axios';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { StorageService } from 'src/app/services/storage.service';
 import * as uuid from 'uuid';
-export class Message {
-  id?: number;
-  client_id: string = '';
-  text: string = '' ;
-  sender: string = "" ;
-  receiver: string = "";
-  date: Date = new Date();
-}
-export class Discussion {
-  me : string = '';
-  other : string = '';
-  lastMessage : string = '';
-  lastMessageDate : Date = new Date();
-}
+import {Message} from ':common/models';
+import {Discussion} from ':common/models';
 
 @Injectable({
   providedIn: 'root'

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UsersService } from '../../api/users/users.service';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from '../../constants';
+import { CONSTANTS } from ':common/constants';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
   public loading: boolean = false;
   async login(){
     this.loading = true;
-    
+
     const loginSuccess = await this.userService.login(this.private_key);
 
     this.loading = false;

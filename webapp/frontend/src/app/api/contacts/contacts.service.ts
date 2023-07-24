@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { StorageService } from 'src/app/services/storage.service';
-export type Contact = {
-  name: string;
-  public_key: string;
-  profile_picture?: string;
-  networks?: string[];
-}
+import { Contact } from ':common/models';
 @Injectable({
   providedIn: 'root'
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
 import { UsersService } from 'src/app/api/users/users.service';
-import { CONSTANTS } from 'src/app/constants';
+import { CONSTANTS } from ':common/constants';
 @Component({
   selector: 'app-discussion-list',
   templateUrl: './discussion-list.page.html',

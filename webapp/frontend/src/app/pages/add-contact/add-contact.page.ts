@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { ContactsListPage } from '../contacts-list/contacts-list.page';
-import { CONSTANTS } from 'src/app/constants';
-import { Contact, ContactsService } from 'src/app/api/contacts/contacts.service';
+import { CONSTANTS } from ':common/constants';
+import {  ContactsService } from 'src/app/api/contacts/contacts.service';
+import { Contact } from ':common/models';
 @Component({
   selector: 'app-add-contact',
   templateUrl: './add-contact.page.html',
@@ -38,7 +38,7 @@ export class AddContactPage implements OnInit {
 
     if (this.contact.name.trim() === "" || this.contact.publicKey.trim() === ""){
       console.log("Please complete all required fields");
-    } 
+    }
     // TODO: comparer la clef entrée avec les clefs existantes pour savoir si c'est une clef valide
     else {
       this.contactsService.addContact(contact);

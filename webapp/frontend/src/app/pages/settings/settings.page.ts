@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from '../../constants';
-import { UserSettings } from 'src/app/api/users/users.service';
+import { CONSTANTS } from ':common/constants';
+import { UserSettings } from ':common/models';
 
 @Component({
   selector: 'app-settings',

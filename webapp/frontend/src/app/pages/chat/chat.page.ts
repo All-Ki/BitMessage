@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { MessagesService, Message } from 'src/app/api/messages/messages.service';
+import { MessagesService } from 'src/app/api/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
 import {CONSTANTS} from ":common/constants";
+import { Message} from ':common/models'
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Contact, ContactsService } from 'src/app/api/contacts/contacts.service';
-import { CONSTANTS } from 'src/app/constants';
-
+import { ContactsService } from 'src/app/api/contacts/contacts.service';
+import { CONSTANTS } from ':common/constants'
+import { Contact } from ':common/models';
 @Component({
   selector: 'app-new-discussion',
   templateUrl: './new-discussion.page.html',

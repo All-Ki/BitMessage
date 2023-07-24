@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Contact } from 'src/app/api/contacts/contacts.service';
-
+import { Contact } from ':common/models';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
