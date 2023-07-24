@@ -3,7 +3,7 @@
     <ion-item>
     <ion-title><Small></Small>Profile Settings</ion-title>
     <ion-button  (click)="goToDiscussionList()" slot="start"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
-    <ion-button slot="end">Save</ion-button>
+    <ion-button (click)="saveSettings()" slot="end">Save</ion-button>
   </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -27,13 +27,13 @@
             </ion-list>
             <ion-list>
               <ion-item>
-                <ion-input placeholder="Username"></ion-input>
+                <ion-input placeholder="Username" [(ngModel)]="currentSettings.username"></ion-input>
               </ion-item>
             </ion-list>
             <ion-list>
               <ion-item>
                 <ion-label>Theme</ion-label>
-                <ion-select value="dark">
+                <ion-select [(ngModel)]="currentSettings.theme"  value="dark">
                   <ion-select-option value="dark">Dark</ion-select-option>
                   <ion-select-option value="light">Light</ion-select-option>
                 </ion-select>
@@ -42,7 +42,7 @@
             <ion-list>
               <ion-item>
                 <ion-label>Preferred Network</ion-label>
-                <ion-select value="BitMessage">
+                <ion-select [(ngModel)]="currentSettings.preferred_network" value="BitMessage">
                   <ion-select-option value="BitMessage">BitMessage</ion-select-option>
                   <ion-select-option value="eth">Ethereum</ion-select-option>
                   <ion-select-option value="btc">Bitcoin</ion-select-option>
@@ -52,19 +52,19 @@
             <ion-list>
               <ion-item>
                 <ion-label>Backup messages</ion-label>
-                <ion-toggle checked="true"></ion-toggle>
+                <ion-toggle [(ngModel)]="currentSettings.backup_messages" checked="true"></ion-toggle>
               </ion-item>
             </ion-list>
             <ion-list>
               <ion-item>
                 <ion-label>Backup contacts</ion-label>
-                <ion-toggle checked="true"></ion-toggle>
+                <ion-toggle [(ngModel)]="currentSettings.backup_contacts" checked="true"></ion-toggle>
               </ion-item>
             </ion-list>
             <ion-list>
               <ion-item>
                 <ion-label>Backup Network</ion-label>
-                <ion-select value="BitMessage">
+                <ion-select [(ngModel)]="currentSettings.backup_network" value="BitMessage">
                   <ion-select-option value="BitMessage">BitMessage</ion-select-option>
                   <ion-select-option value="eth">Ethereum</ion-select-option>
                   <ion-select-option value="btc">Bitcoin</ion-select-option>

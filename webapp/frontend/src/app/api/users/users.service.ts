@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import * as Accounts from 'web3-eth-accounts';
-import { ApiService } from '../api/api.service';
+import { ApiService } from 'src/app/api/api/api.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ServiceWithInit } from 'src/app/services/service-with-init';
 import { NavController } from '@ionic/angular';
-import { CONSTANTS } from ':common/constants';
 import { Router } from '@angular/router';
+import { CONSTANTS } from ':common/constants';
 import { UserSettings } from ':common/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService extends ServiceWithInit {
-  private private_key: string = '';
   private wallet: any;
-  private public_key: string = '';
   private accounts: any;
+  private userSettings: UserSettings  = new UserSettings();
 
   constructor(private storage: StorageService, private navCtrl: NavController, private router:Router) {
     super(storage);
@@ -24,13 +23,14 @@ export class UsersService extends ServiceWithInit {
     var pk = await this.storage.get('wallet');
     if (pk != null) {
       if(await this.login(pk) && this.router.url == '/login'){
+        this.userSettings = await this.storage.get('userSettings') || new UserSettings();
         this.navCtrl.navigateRoot(CONSTANTS.discussion_list_page);
       }
     }
   }
 
   getCurrentUser(): string {
-    return this.public_key;
+    return this.wallet.address;
   }
 
   public async isLoggedIn(): Promise<boolean> {
@@ -43,7 +43,6 @@ export class UsersService extends ServiceWithInit {
 
       let acc = Accounts.privateKeyToAccount(private_key);
       let signed = acc.sign('Login from ' + acc.address);
-      //console.log("recovered : " + Accounts.recover('Login from ' + acc.address , signed.signature))
       const res = await ApiService.post('/login', {
         public_key: acc.address,
         encrypted_message: signed,
@@ -53,26 +52,32 @@ export class UsersService extends ServiceWithInit {
         console.log("Error");
         return false;
       }
-
-      this.private_key = private_key;
       this.wallet = acc;
-      this.public_key = acc.address;
-      this.storage.set('wallet', private_key);
-      //console.log(await this.storage.get('wallet'))
-      // console.log('login ' + private_key);
-      // console.log(this.isLoggedIn())
-
+      this.storage.set('wallet', acc.privateKey);
       return true;
     } catch (e) {
       console.log(e);
       return false;
     }
   }
+  public async saveUserSettings(userSettings: UserSettings) : Promise<boolean>{
+    try{
+      this.userSettings = userSettings;
+      await this.storage.set('userSettings', this.userSettings);
+      return true;
+    }
+    catch(e){
+      console.log(e);
+      return false;
+    }
+  }
 
+  public async getUserSettings(): Promise<UserSettings>{
+    await this.WaitUntilReady();
+    return this.userSettings;
+  }
   logout(){
-    this.private_key = "";
     this.wallet = null;
-    this.public_key = "";
     this.storage.clear();
   }
 }
