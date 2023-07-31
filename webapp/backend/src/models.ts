@@ -64,12 +64,6 @@ export const UserSettings = sequelize.define('UserSettings', {
 		allowNull: false,
 		defaultValue: true
 	},
-	backup_messages: {
-		type: DataTypes.BOOLEAN,
-		allowNull: false,
-		defaultValue: true
-
-	},
 	backup_network: {
 		type: DataTypes.STRING,
 		allowNull: false,
@@ -77,5 +71,18 @@ export const UserSettings = sequelize.define('UserSettings', {
 	},
 
 })
+
+export const ContactList = sequelize.define('ContactList', {
+	user_id: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		primaryKey: true,
+	},
+	encrypted_contact_list: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+})
+
 
 sequelize.sync({ force: true })
