@@ -1,0 +1,2 @@
+BitMessage is a cross platform app allowing for fully decentralized and encrypted communications leveraging the already implemented blockchain encryption protocols.
+It allows for either using our server as a temporary routing server where messages are deleted as soon as they are received or sending messages directly through the blockchain.

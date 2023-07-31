@@ -13,8 +13,7 @@ import { UserSettings } from ':common/models';
 })
 export class UsersService extends ServiceWithInit {
   private wallet: any;
-  private accounts: any;
-  private userSettings: UserSettings  = new UserSettings();
+  private user_settings: UserSettings  = new UserSettings();
 
   constructor(private storage: StorageService, private navCtrl: NavController, private router:Router) {
     super(storage);
@@ -23,7 +22,7 @@ export class UsersService extends ServiceWithInit {
     var pk = await this.storage.get('wallet');
     if (pk != null) {
       if(await this.login(pk) && this.router.url == '/login'){
-        this.userSettings = await this.storage.get('userSettings') || new UserSettings();
+        this.user_settings = await this.storage.get('user_settings') || new UserSettings();
         this.navCtrl.navigateRoot(CONSTANTS.discussion_list_page);
       }
     }
@@ -62,8 +61,9 @@ export class UsersService extends ServiceWithInit {
   }
   public async saveUserSettings(userSettings: UserSettings) : Promise<boolean>{
     try{
-      this.userSettings = userSettings;
-      await this.storage.set('userSettings', this.userSettings);
+      this.user_settings = userSettings;
+      await this.storage.set('user_settings', this.user_settings);
+      await ApiService.post('/user_settings', this.user_settings);
       return true;
     }
     catch(e){
@@ -71,10 +71,9 @@ export class UsersService extends ServiceWithInit {
       return false;
     }
   }
-
   public async getUserSettings(): Promise<UserSettings>{
     await this.WaitUntilReady();
-    return this.userSettings;
+    return this.user_settings;
   }
   logout(){
     this.wallet = null;

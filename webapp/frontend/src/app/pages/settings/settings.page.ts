@@ -22,7 +22,7 @@ export class SettingsPage implements OnInit {
 
   async saveSettings(){
     console.log(this.currentSettings);
-    await this.userSvc.saveUserSettings(this.currentSettings);
+   console.log(await this.userSvc.saveUserSettings(this.currentSettings));
   }
   async ngOnInit() {
     this.currentSettings = await this.userSvc.getUserSettings();

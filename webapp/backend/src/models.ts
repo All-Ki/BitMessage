@@ -21,11 +21,11 @@ export const Message = sequelize.define('Message', {
 		allowNull: false,
 	},
 	sender: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		allowNull: false,
 	},
 	receiver: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		allowNull: false,
 	},
 })
@@ -45,7 +45,7 @@ export const User = sequelize.define('User', {
 
 export const UserSettings = sequelize.define('UserSettings', {
 	public_key: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		primaryKey: true,
 		allowNull: false,
 		},

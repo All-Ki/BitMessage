@@ -38,4 +38,24 @@ export class ContactsService extends ServiceWithInit {
 
     return true;
   }
+
+  public async removeContact(contact:Contact) : Promise<boolean> {
+    if(this.Contacts.get(contact.public_key) == null){
+      return false;
+    };
+    this.Contacts.delete(contact.public_key);
+    await this.saveContacts();
+
+    return true;
+  }
+
+  public async updateContact(contact:Contact) : Promise<boolean> {
+    if(this.Contacts.get(contact.public_key) == null){
+      return false;
+    };
+    this.Contacts.set(contact.public_key,contact);
+    await this.saveContacts();
+
+    return true;
+  }
 }
