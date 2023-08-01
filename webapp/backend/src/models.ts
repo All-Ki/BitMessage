@@ -1,8 +1,18 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { Sequelize, DataTypes, InferAttributes, Model, CreationOptional } from 'sequelize';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
 
-export const Message = sequelize.define('Message', {
+export class Message extends Model<InferAttributes<Message>> {
+	declare id: CreationOptional<number>;
+	declare client_id: string;
+	declare text: string;
+	declare date: Date;
+	declare sender: string;
+	declare receiver: string;
+}
+
+Message.init({
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -28,10 +38,14 @@ export const Message = sequelize.define('Message', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-})
+}, {sequelize})
 
+export class User extends Model<InferAttributes<User>> {
+	declare id:CreationOptional<number>;
+	declare username: string;
+}
 
-export const User = sequelize.define('User', {
+User.init({
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -41,9 +55,16 @@ export const User = sequelize.define('User', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-})
+}, {sequelize})
 
-export const UserSettings = sequelize.define('UserSettings', {
+export class UserSettings extends Model<InferAttributes<UserSettings>> {
+	declare public_key: string;
+	declare theme: string;
+	declare preferred_network: string;
+	declare backup_contacts: boolean;
+	declare backup_network: string;
+}
+UserSettings.init({
 	public_key: {
 		type: DataTypes.STRING,
 		primaryKey: true,
@@ -70,9 +91,13 @@ export const UserSettings = sequelize.define('UserSettings', {
 		defaultValue: 'BitMessage'
 	},
 
-})
+}, {sequelize})
 
-export const ContactList = sequelize.define('ContactList', {
+export class ContactList extends Model<InferAttributes<ContactList>> {
+	declare user_id: string;
+	declare encrypted_contact_list: string;
+}
+ContactList.init({
 	user_id: {
 		type: DataTypes.STRING,
 		allowNull: false,
@@ -82,7 +107,26 @@ export const ContactList = sequelize.define('ContactList', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-})
+},{sequelize})
 
+export class Nonce extends Model<InferAttributes<Nonce>> {
+	declare user_id: string;
+	declare request_id: string;
+	declare nonce: string;
+}
+Nonce.init({
+	user_id: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	request_id: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	nonce: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+}, {sequelize})
 
 sequelize.sync({ force: true })
