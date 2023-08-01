@@ -119,12 +119,12 @@ export function create_routes(app){
 			return;
 		}
 		const public_key = req.body.public_key;
-		const request_id = req.body.request_id;
+		const action = req.body.action;
 		const request_type = req.body.request_type;
 		const existing_nonce = await Nonce.findOne({
 			where: {
 				public_key: public_key,
-				request_type: request_type,
+				action: action,
 			}
 		})
 		if(existing_nonce){
@@ -135,8 +135,7 @@ export function create_routes(app){
 
 		const nonce ={
 			public_key: public_key,
-			request_id: request_id,
-			request_type: request_type,
+			action: action,
 			nonce: nonce_value,
 		}
 		await Nonce.build(nonce).save();
