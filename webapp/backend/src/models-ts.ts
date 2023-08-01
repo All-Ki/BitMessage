@@ -48,12 +48,10 @@ export class ContactList extends Model{
 
 @Table
 export class Nonce extends Model{
-	@Column({primaryKey: true})
+	@Column
 	public_key: string;
 	@Column
 	nonce: string;
-	@Column
-	request_id: string;
 	@Column
 	request_type: string;
 }
