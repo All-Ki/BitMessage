@@ -35,12 +35,16 @@ export class ApiService {
     });
   }
   // Wrapper method to forward GET requests
-  public get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'GET');
+    config = {...config, headers: {...config.headers, 'X-Nonce': nonce}};
     return this.axiosInstance.get(url, config);
   }
 
   // Wrapper method to forward POST requests
-  public post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'POST');
+    config = {...config, headers: {...config.headers, 'X-Nonce': nonce}};
     return this.axiosInstance.post(url, data, config);
   }
 
