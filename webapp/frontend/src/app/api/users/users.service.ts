@@ -41,7 +41,7 @@ export class UsersService extends ServiceWithInit {
     try {
 
       let acc = Accounts.privateKeyToAccount(private_key);
-      let signed = acc.sign('Login from ' + acc.address);
+      let signed = acc.sign('Login from ' + acc.address).signature;
       const res = await ApiService.post('/login', {
         public_key: acc.address,
         encrypted_message: signed,

@@ -28,7 +28,12 @@ export class ApiService {
   }
 
 
-
+  public generateNonce(public_key: string, request_type: string): AxiosPromise<any> {
+    return this.post('/nonce', {
+      public_key: public_key,
+      request_type: request_type
+    });
+  }
   // Wrapper method to forward GET requests
   public get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
     return this.axiosInstance.get(url, config);
