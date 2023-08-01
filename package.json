@@ -8,7 +8,7 @@
     "start:frontend": "cd webapp/frontend && npm start",
     "start:web": "npm-run-all --parallel start:backend start:frontend",
     "fullstart": "npm run install:all && npm run start:web",
-    "install:all": "npm ci && cd webapp/backend && npm ci && cd ../frontend && npm ci"
+    "install:all": "npm ci && cd webapp/backend && npm ci && cd ../frontend && npm ci && cd ../common && npm ci"
   },
   "author": "",
   "license": "ISC",

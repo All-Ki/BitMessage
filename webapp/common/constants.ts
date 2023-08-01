@@ -28,4 +28,16 @@ export class CONSTANTS{
 		}
 
 	]
+
+	public static readonly Actions = {
+		update_settings: 'update_settings',
+		get_settings: 'get_settings',
+		get_contacts: 'get_contacts',
+		update_contacts: 'update_contacts',
+		send_message: 'send_message',
+		get_messages: 'get_messages',
+		get_discussions: 'get_discussions',
+		login: 'login',
+	}
 }
+
