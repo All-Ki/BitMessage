@@ -89,7 +89,6 @@ export function create_routes(app){
 		const existing_nonce = await Nonce.findOne({
 			where: {
 				public_key: public_key,
-				request_id: request_id,
 				request_type: request_type,
 			}
 		})
