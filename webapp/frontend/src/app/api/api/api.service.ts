@@ -35,37 +35,51 @@ export class ApiService {
     });
   }
   // Wrapper method to forward GET requests
-  public get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'GET');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.get(url, config);
   }
 
   // Wrapper method to forward POST requests
-  public post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'POST');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.post(url, data, config);
   }
 
   // Wrapper method to forward PUT requests
-  public put<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'PUT');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.put(url, data, config);
   }
 
   // Wrapper method to forward PATCH requests
-  public patch<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'PATCH');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.patch(url, data, config);
   }
 
   // Wrapper method to forward DELETE requests
-  public delete<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async delete<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'DELETE');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.delete(url, config);
   }
 
   // Wrapper method to forward HEAD requests
-  public head<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async head<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'HEAD');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.head(url, config);
   }
 
   // Wrapper method to forward OPTIONS requests
-  public options<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+  public async options<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
+    const nonce = await this.generateNonce(public_key, 'OPTIONS');
+    config.headers['Authorization'] = `Bearer ${nonce}`;
     return this.axiosInstance.options(url, config);
   }
 
