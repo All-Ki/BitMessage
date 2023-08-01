@@ -16,6 +16,11 @@ export function create_routes(app){
 	}
 
 	app.post('/messages', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		console.log(req.body);
 		const message : NewMessage = req.body;
 		message.id = undefined;
@@ -26,6 +31,11 @@ export function create_routes(app){
 	})
 
 	app.get('/messages/:receiver/:sender', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const receiver = req.params.receiver;
 		const sender = req.params.sender;
 		const msgs = await Message.findAll({
@@ -41,6 +51,11 @@ export function create_routes(app){
 		res.send(msgs);
 	})
 	app.get('/discussions/:user', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const user = req.params.user;
 		const msgs = await Message.findAll({
 			where: {
@@ -54,6 +69,11 @@ export function create_routes(app){
 		res.send(msgs);
 	})
 	app.post('/login', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const public_key = req.body.public_key;
 		const encrypted_message = req.body.encrypted_message;
 
@@ -70,6 +90,11 @@ export function create_routes(app){
 
 	})
 	app.post('/user_settings', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const public_key = req.body.public_key;
 		const message = req.body.message;
 		const settings = req.body.settings;
@@ -77,12 +102,22 @@ export function create_routes(app){
 	})
 
 	app.post('/contacts', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const public_key = req.body.public_key;
 		const message = req.body.message;
 		const contacts = req.body.contacts;
 		res.json(contacts)
 	})
 	app.post('/nonce', async (req, res) => {
+		const nonce = req.headers['authorization'];
+		if (!validateNonce(nonce)) {
+			res.status(401).send('Invalid nonce');
+			return;
+		}
 		const public_key = req.body.public_key;
 		const request_id = req.body.request_id;
 		const request_type = req.body.request_type;
