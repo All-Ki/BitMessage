@@ -53,5 +53,5 @@ export class Nonce extends Model{
 	@Column
 	nonce: string;
 	@Column
-	request_type: string;
+	action: string;
 }
