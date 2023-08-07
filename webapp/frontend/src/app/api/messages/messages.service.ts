@@ -37,8 +37,6 @@ export class MessagesService extends ServiceWithInit{
   }
   async postMessage(text: string, receiver: string) {
     const nonce = await this.userSvc.getNonce(CONSTANTS.Actions.send_message);
-    console.log("nonce");
-    console.log(nonce);
     const headers = this.userSvc.buildHeaders(CONSTANTS.Actions.send_message, nonce)
     const sender = this.userSvc.getCurrentUser();
     const msg = {
@@ -60,7 +58,9 @@ export class MessagesService extends ServiceWithInit{
 
   async getMessagesFrom(from : string) : Promise<Message[]>{
     await this.WaitUntilReady();
-    const res = await axios.get(environment.url + '/messages/' + this.current_user + '/' + from);
+    const nonce = await this.userSvc.getNonce(CONSTANTS.Actions.get_messages);
+    const headers = this.userSvc.buildHeaders(CONSTANTS.Actions.get_messages, nonce)
+    const res = await ApiService.get<any>(environment.url + '/messages/' + this.current_user + '/' + from, {headers: headers});
     let msgs = res.data;
     msgs = msgs.filter((msg: any) => { return msg.sender == from});
     let messages = this.Discussions.get(from) || [];
