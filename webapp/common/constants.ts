@@ -74,10 +74,6 @@ export class CONSTANTS{
 		{
 		  url: '/contacts',
 		  action: CONSTANTS.Actions.update_contacts
-		},
-		{
-		  url: '/nonce',
-		  action: CONSTANTS.Actions.get_nonce
-		},
+		}
 		// Add more mappings as needed
 	  ];
