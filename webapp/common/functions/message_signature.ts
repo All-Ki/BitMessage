@@ -7,5 +7,8 @@ export function build_signed_message_for_verification(private_key: string, actio
 }
 
 export function verify_signed_message(public_key: string, action: string, nonce: string, signature: string): boolean {
-	return recover(action + nonce, signature) === public_key;
+	const recovered =  recover(action + nonce, signature);
+	console.log('recovered', recovered);
+	console.log('public_key', public_key);
+	return recovered.toLowerCase() === public_key.toLowerCase();
 }
