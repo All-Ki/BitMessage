@@ -75,8 +75,20 @@ export class UsersService extends ServiceWithInit {
     await this.WaitUntilReady();
     return this.user_settings;
   }
+  public async getNonce(request_type: string): Promise<string> {
+    await this.WaitUntilReady();
+    return (await ApiService.generateNonce(this.wallet.address,request_type)).data.nonce as any;
+  }
   logout(){
     this.wallet = null;
     this.storage.clear();
+  }
+
+  public signMessage(request_type: string, nonce: string): string {
+    return this.wallet.sign("" + request_type + nonce).signature;
+  }
+
+  public buildHeaders(request_type: string, nonce: string): any {
+    return ApiService.buildHeaders(this.wallet.address, this.signMessage(request_type, nonce));
   }
 }

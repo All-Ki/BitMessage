@@ -28,11 +28,23 @@ export class ApiService {
   }
 
 
-  public generateNonce(public_key: string, request_type: string): AxiosPromise<any> {
-    return this.post('/nonce', {
+  public static generateNonce(public_key: string, request_type: string): AxiosPromise<any> {
+    if(!public_key || !request_type){
+      console.log('public_key and request_type are required');
+      console.log("public_key: " + public_key);
+      console.log("request_type: " + request_type);
+      throw new Error('public_key and request_type are required');
+    }
+    return ApiService.axiosInstance.post('/nonce', {
       public_key: public_key,
-      request_type: request_type
+      action: request_type
     });
+  }
+  public static buildHeaders(public_key: string, signature : string){
+    return {
+      'x-public-key': public_key,
+      'x-signature': signature
+    }
   }
   // Wrapper method to forward GET requests
   public async get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T> {
