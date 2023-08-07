@@ -16,6 +16,7 @@ class Routes {
 
 	constructor(app: Express) {
 	  this.app = app;
+	  this.createRoutes();
 	}
 
 	private rootHandler(req: Request, res: Response) {
