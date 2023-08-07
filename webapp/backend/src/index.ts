@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { Routes } from './routes'
+import "./setup_db"
 import {CONSTANTS} from ':common/constants'
 const PORT = 5656
 /**

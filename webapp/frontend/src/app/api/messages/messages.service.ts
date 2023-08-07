@@ -7,6 +7,8 @@ import { StorageService } from 'src/app/services/storage.service';
 import * as uuid from 'uuid';
 import {Message} from ':common/models';
 import {Discussion} from ':common/models';
+import { CONSTANTS } from ':common/constants';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class MessagesService extends ServiceWithInit{
   constructor(private userSvc: UsersService, private storage: StorageService) {
     super(storage);
   }
+
   override async OnStorageReady() {
     this.current_user = this.userSvc.getCurrentUser();
     let discussions =  await this.storage.get('discussions');
@@ -33,6 +36,10 @@ export class MessagesService extends ServiceWithInit{
     await this.storage.set('discussions', this.Discussions);
   }
   async postMessage(text: string, receiver: string) {
+    const nonce = await this.userSvc.getNonce(CONSTANTS.Actions.send_message);
+    console.log("nonce");
+    console.log(nonce);
+    const headers = this.userSvc.buildHeaders(CONSTANTS.Actions.send_message, nonce)
     const sender = this.userSvc.getCurrentUser();
     const msg = {
       text: text,
@@ -41,7 +48,7 @@ export class MessagesService extends ServiceWithInit{
       date: new Date(),
       client_id: uuid.v4(),
     }
-    await axios.post(environment.url + '/messages', msg);
+    await ApiService.post(environment.url + '/messages', msg, {headers: headers});
     let messages = this.Discussions.get(receiver);
     if (messages == null) {
       messages = [];

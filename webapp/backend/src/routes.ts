@@ -93,18 +93,17 @@ class Routes {
 	private async nonceHandler(req: Request, res: Response) {
 	  const public_key = req.body.public_key;
 	  const action = req.body.action;
+	  console.log('Public Key:' + public_key);
+	  console.log('Action:' + action);
 	  const existing_nonce = await Nonce.findOne({
 		where: {
 		  public_key: public_key,
 		  action: action,
 		},
 	  });
-
-	  if (existing_nonce) {
-		res.json({ nonce: existing_nonce });
-		return;
+	  if(existing_nonce){
+		await existing_nonce.destroy();
 	  }
-
 	  const nonce_value = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
 	  const nonce = {
@@ -114,12 +113,14 @@ class Routes {
 	  };
 
 	  await Nonce.build(nonce).save();
+	  console.log("nonce qa;lasj");
+	  console.log(nonce);
 	  res.json({ nonce: nonce.nonce });
 	}
 
 	createRoutes(): Express {
 	  this.app.get('/', this.rootHandler.bind(this));
-	  this.app.post('/messages', this.messagesHandler.bind(this));
+	  this.app.post('/messages',authenticationMiddleware, this.messagesHandler.bind(this));
 	  this.app.get('/messages/:receiver/:sender', this.getMessagesHandler.bind(this));
 	  this.app.get('/discussions/:user', this.discussionsHandler.bind(this));
 	  this.app.post('/login', this.loginHandler.bind(this));
