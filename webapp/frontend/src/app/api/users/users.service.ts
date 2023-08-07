@@ -63,7 +63,9 @@ export class UsersService extends ServiceWithInit {
     try{
       this.user_settings = userSettings;
       await this.storage.set('user_settings', this.user_settings);
-      await ApiService.post('/user_settings', this.user_settings);
+      const nonce = await this.getNonce(CONSTANTS.Actions.update_settings);
+      const headers = this.buildHeaders(CONSTANTS.Actions.update_settings, nonce);
+      await ApiService.post('/user_settings', this.user_settings, {headers: headers});
       return true;
     }
     catch(e){
