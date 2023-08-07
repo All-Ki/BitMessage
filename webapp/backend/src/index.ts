@@ -27,4 +27,4 @@ const router = new Routes(app)
 /**
  * On demande à Express d'ecouter les requêtes sur le port défini dans la config
  */
-app.listen(PORT, () => console.log('Silence, ça tourne. ' + CONSTANTS.Networks[0].url))
+app.listen(PORT, () => console.log('Silence, ça tourne. ' + PORT))
