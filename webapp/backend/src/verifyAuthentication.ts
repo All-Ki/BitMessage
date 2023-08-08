@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from 'express';
 async function authenticationMiddleware(req: Request, res: Response, next: NextFunction) {
   const public_key = req.headers['x-public-key'] as string;
   const signature = req.headers['x-signature'] as string;
-    const action = CONSTANTS.getActionFromUrl(req.url);
+  const action = CONSTANTS.getActionFromUrl(req.url,req.method);
 
   if (!action) {
     return res.status(401).json({ success: false, message: 'Invalid action' });
