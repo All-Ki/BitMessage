@@ -1,6 +1,6 @@
 
 import express, { Request, Response, Express } from 'express';
-import { Message, Nonce } from './models-ts';
+import { Message, Nonce, ContactList } from './models-ts';
 import * as Accounts from 'web3-eth-accounts';
 import { authenticationMiddleware } from './verifyAuthentication';
 type NewMessage = {
@@ -83,12 +83,6 @@ class Routes {
 	  res.json(settings);
 	}
 
-	private async contactsHandler(req: Request, res: Response) {
-	  const public_key = req.body.public_key;
-	  const message = req.body.message;
-	  const contacts = req.body.contacts;
-	  res.json(contacts);
-	}
 
 	private async nonceHandler(req: Request, res: Response) {
 	const {public_key, action} = req.body;
@@ -112,7 +106,41 @@ class Routes {
 	  await Nonce.build(nonce).save();
 	  res.json({ nonce: nonce.nonce });
 	}
+	private async getContactsHandler(req: Request, res: Response) {
+		const public_key = req.body.public_key;
+		const existing_contacts = await ContactList.findOne({
+		  where: {
+			public_key: public_key,
+		  },
+		});
+		if (existing_contacts) {
+		  res.json(existing_contacts.encrypted_contact_list);
+		} else {
+		  res.json([]);
+		}
+	  }
 
+
+	private async saveContactsHandler(req: Request, res: Response) {
+		const public_key = req.body.public_key;
+		const contacts = req.body.contacts;
+
+		const existing_contacts = await ContactList.findOne({
+		  where: {
+			public_key: public_key,
+		  },
+		});
+		if (existing_contacts) {
+		  await existing_contacts.destroy();
+		}
+		const new_contacts = {
+		  public_key: public_key,
+		  encrypted_contact_list: contacts,
+		};
+		await ContactList.build(new_contacts).save();
+		res.json(contacts);
+
+	}
 	createRoutes(): Express {
 	  this.app.get('/', this.rootHandler.bind(this));
 	  this.app.post('/messages',authenticationMiddleware, this.messagesHandler.bind(this));
@@ -120,7 +148,8 @@ class Routes {
 	  this.app.get('/discussions/:user', this.discussionsHandler.bind(this));
 	  this.app.post('/login', this.loginHandler.bind(this));
 	  this.app.post('/user_settings',authenticationMiddleware, this.userSettingsHandler.bind(this));
-	  this.app.post('/contacts', this.contactsHandler.bind(this));
+	  this.app.get('/contacts', this.getContactsHandler.bind(this));
+	  this.app.post('/contacts', this.saveContactsHandler.bind(this));
 	  this.app.post('/nonce', this.nonceHandler.bind(this));
 
 	  return this.app;
