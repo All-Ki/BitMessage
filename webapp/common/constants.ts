@@ -40,11 +40,13 @@ export class CONSTANTS{
 		login: 'login',
 	}
 
-  public static getActionFromUrl(url: string): string | undefined {
+  public static getActionFromUrl(url: string, method: string ): string | undefined {
     const matchedMapping = urlToActionMap.find(mapping => {
       const re = new RegExp('^' + mapping.url.replace(/:[^\s/]+/g, '([^/]+)') + '$');
-      return re.test(url);
+      return re.test(url) && (method.toLowerCase() === mapping.method.toLowerCase());
     });
+	if(!matchedMapping)
+		console.log("No action found for url: " + url + " and method: " + method);
 
     return matchedMapping ? matchedMapping.action : undefined;
   }
@@ -53,27 +55,38 @@ export class CONSTANTS{
 	const urlToActionMap = [
 		{
 		  url: '/messages',
+		  method: 'POST',
 		  action: CONSTANTS.Actions.send_message
 		},
 		{
 		  url: '/messages/:receiver/:sender',
+		  method: 'GET',
 		  action: CONSTANTS.Actions.get_messages
 		},
 		{
 		  url: '/discussions/:user',
+		  method: 'GET',
 		  action: CONSTANTS.Actions.get_discussions
 		},
 		{
 		  url: '/login',
+		  method: 'POST',
 		  action: CONSTANTS.Actions.login
 		},
 		{
 		  url: '/user_settings',
+		  method: 'POST',
 		  action: CONSTANTS.Actions.update_settings
 		},
 		{
 		  url: '/contacts',
-		  action: CONSTANTS.Actions.update_contacts
-		}
+		  method: 'GET',
+		  action: CONSTANTS.Actions.get_contacts
+		},
+		{
+			url: '/contacts',
+			method: 'POST',
+			action: CONSTANTS.Actions.update_contacts
+		  }
 		// Add more mappings as needed
 	  ];
