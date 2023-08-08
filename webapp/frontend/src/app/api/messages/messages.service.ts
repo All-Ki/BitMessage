@@ -103,4 +103,11 @@ export class MessagesService extends ServiceWithInit{
     }
     return discussions;
   }
+  encryptMessage(message: string, receiver: string){
+
+  }
+
+  decryptMessage(message: string){
+
+  }
 }
