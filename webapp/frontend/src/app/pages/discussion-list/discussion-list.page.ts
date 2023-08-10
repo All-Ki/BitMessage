@@ -35,8 +35,7 @@ export class DiscussionListPage implements OnInit {
   async ngOnInit() {
     this.discussions = await this.msgSvc.getDiscussions();
     console.log(this.discussions);
-    const k = await EncryptionService.generateRSAKeyPairFromPublicAndPrivateKey("test");
-    console.log(k);
+
   }
 
   logout(){

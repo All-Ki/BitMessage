@@ -7,6 +7,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CONSTANTS } from ':common/constants';
 import { UserSettings } from ':common/models';
+import { EncryptionService } from 'src/app/services/encryption.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,17 @@ import { UserSettings } from ':common/models';
 export class UsersService extends ServiceWithInit {
   private wallet: any;
   private user_settings: UserSettings  = new UserSettings();
-
+  private rsa_keypair: any;
   constructor(private storage: StorageService, private navCtrl: NavController, private router:Router) {
     super(storage);
   }
   override async OnStorageReady() {
     var pk = await this.storage.get('wallet');
+    this.rsa_keypair =  await this.storage.get('rsa_keypair');
+    if(this.rsa_keypair != null){
+      this.rsa_keypair = EncryptionService.key_from_storage(this.rsa_keypair);
+      console.log(this.rsa_keypair);
+    }
     if (pk != null) {
       if(await this.login(pk) && this.router.url == '/login'){
         this.user_settings = await this.storage.get('user_settings') || new UserSettings();
@@ -53,6 +59,11 @@ export class UsersService extends ServiceWithInit {
       }
       this.wallet = acc;
       this.storage.set('wallet', acc.privateKey);
+      if(this.rsa_keypair == null){
+        this.rsa_keypair = await EncryptionService.generateRSAKeyPairFromPrivateKey(private_key);
+        console.log(this.rsa_keypair);
+        this.storage.set('rsa_keypair', EncryptionService.key_to_storage(this.rsa_keypair));
+      }
       return true;
     } catch (e) {
       console.log(e);
@@ -83,6 +94,7 @@ export class UsersService extends ServiceWithInit {
   }
   logout(){
     this.wallet = null;
+    this.rsa_keypair = null;
     this.storage.clear();
   }
 
