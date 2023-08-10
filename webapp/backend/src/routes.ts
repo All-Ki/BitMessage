@@ -1,6 +1,6 @@
 
 import express, { Request, Response, Express } from 'express';
-import { Message, Nonce, ContactList } from './models-ts';
+import { Message, Nonce, ContactList, User } from './models-ts';
 import * as Accounts from 'web3-eth-accounts';
 import { authenticationMiddleware } from './verifyAuthentication';
 type NewMessage = {
@@ -63,6 +63,12 @@ class Routes {
 	private async loginHandler(req: Request, res: Response) {
 	  const public_key = req.body.public_key;
 	  const encrypted_message = req.body.encrypted_message;
+	  const rsa_public_key = req.body.rsa_public_key;
+	  if(!public_key || !encrypted_message || !rsa_public_key){
+		res.status(401).json({ success: false, message: 'Invalid signature or key' });
+		return
+	  }
+
 
 	  console.log('Public Key:' + public_key);
 	  console.log('Encrypted Message:' + encrypted_message);
@@ -70,6 +76,21 @@ class Routes {
 	  var verifier = Accounts.recover('Login from ' + public_key, encrypted_message);
 
 	  if (verifier === public_key) {
+
+		const userData = await User.findOne({
+		  where: {
+			public_key: public_key,
+		  },
+		});
+		if (!userData) {
+		  const user = {
+			public_key: public_key,
+			rsa_public_key: rsa_public_key,
+		  };
+		  const newUser = User.build(user);
+		  await newUser.save();
+		}
+
 		res.status(200).json({ success: true, message: 'Login successful' });
 	  } else {
 		res.status(401).json({ success: false, message: 'Invalid signature or key' });

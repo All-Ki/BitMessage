@@ -9,13 +9,9 @@ export class EncryptionService {
     if(priv_key.startsWith('0x')){ //remove 0x so we keep maximum entropy
       priv_key = priv_key.substring(2);
     }
-    var ed25519 = forge.pki.ed25519;
-    var md: any = forge.md.sha512.create();
-    md.update(priv_key);
-    var seed : any= priv_key + md.digest().bytes();
-    md = forge.md.sha384.create();
-    md.update(priv_key);
-    seed += md.digest().bytes();
+    var md: any = forge.md.sha512.create().update(priv_key).digest().bytes();
+    var seed : any= priv_key + md
+
     //TODO : RISK ASSESMENT
     //str = str.repeat(25); //repeat the string to get more entropy
     // Convert the seed to bytes using TextEncoder
@@ -45,6 +41,10 @@ export class EncryptionService {
   static key_from_storage(key: any){
     key = JSON.parse(key);
     return {private_key: forge.pki.privateKeyFromPem(key.private_key), public_key: forge.pki.publicKeyFromPem(key.public_key)};
+  }
+
+  static public_key_pem(keypair: any){
+    return forge.pki.publicKeyToPem(keypair.public_key);
   }
   static async encryptData(data: string, publicKey: CryptoKey) {
     const encoder = new TextEncoder();
