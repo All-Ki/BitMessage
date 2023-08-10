@@ -22,6 +22,8 @@ export class Message extends Model{
 export class User extends Model{
 	@Column({primaryKey: true})
 	public_key: string;
+	@Column
+	public_key_rsa: string;
 }
 
 @Table

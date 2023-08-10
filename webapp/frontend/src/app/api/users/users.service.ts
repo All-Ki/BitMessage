@@ -48,9 +48,15 @@ export class UsersService extends ServiceWithInit {
 
       let acc = Accounts.privateKeyToAccount(private_key);
       let signed = acc.sign('Login from ' + acc.address).signature;
+      if(this.rsa_keypair == null){
+        this.rsa_keypair = await EncryptionService.generateRSAKeyPairFromPrivateKey(private_key);
+        console.log(this.rsa_keypair);
+        this.storage.set('rsa_keypair', EncryptionService.key_to_storage(this.rsa_keypair));
+      }
       const res = await ApiService.post('/login', {
         public_key: acc.address,
         encrypted_message: signed,
+        rsa_public_key: EncryptionService.public_key_pem(this.rsa_keypair)
       });
 
       if(res.status != 200){
@@ -59,11 +65,7 @@ export class UsersService extends ServiceWithInit {
       }
       this.wallet = acc;
       this.storage.set('wallet', acc.privateKey);
-      if(this.rsa_keypair == null){
-        this.rsa_keypair = await EncryptionService.generateRSAKeyPairFromPrivateKey(private_key);
-        console.log(this.rsa_keypair);
-        this.storage.set('rsa_keypair', EncryptionService.key_to_storage(this.rsa_keypair));
-      }
+
       return true;
     } catch (e) {
       console.log(e);
