@@ -22,9 +22,10 @@ export class UsersService extends ServiceWithInit {
   override async OnStorageReady() {
     var pk = await this.storage.get('wallet');
     this.rsa_keypair =  await this.storage.get('rsa_keypair');
+    //console.log(JSON.parse(this.rsa_keypair));
     if(this.rsa_keypair != null){
       this.rsa_keypair = EncryptionService.key_from_storage(this.rsa_keypair);
-      console.log(this.rsa_keypair);
+    //  console.log(this.rsa_keypair);
     }
     if (pk != null) {
       if(await this.login(pk) && this.router.url == '/login'){
@@ -50,7 +51,7 @@ export class UsersService extends ServiceWithInit {
       let signed = acc.sign('Login from ' + acc.address).signature;
       if(this.rsa_keypair == null){
         this.rsa_keypair = await EncryptionService.generateRSAKeyPairFromPrivateKey(private_key);
-        console.log(this.rsa_keypair);
+        //console.log(this.rsa_keypair);
         this.storage.set('rsa_keypair', EncryptionService.key_to_storage(this.rsa_keypair));
       }
       const res = await ApiService.post('/login', {
@@ -60,7 +61,7 @@ export class UsersService extends ServiceWithInit {
       });
 
       if(res.status != 200){
-        console.log("Error");
+        console.log("Error during login : " + res.status + " " + res.statusText);
         return false;
       }
       this.wallet = acc;
