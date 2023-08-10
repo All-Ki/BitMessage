@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
 import { UsersService } from 'src/app/api/users/users.service';
 import { CONSTANTS } from ':common/constants';
+import { EncryptionService } from 'src/app/services/encryption.service';
 @Component({
   selector: 'app-discussion-list',
   templateUrl: './discussion-list.page.html',
@@ -34,6 +35,8 @@ export class DiscussionListPage implements OnInit {
   async ngOnInit() {
     this.discussions = await this.msgSvc.getDiscussions();
     console.log(this.discussions);
+    const k = await EncryptionService.generateRSAKeyPairFromPublicAndPrivateKey("test");
+    console.log(k);
   }
 
   logout(){

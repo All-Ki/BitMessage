@@ -19,4 +19,28 @@ describe('EncryptionService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should generate RSA key pair from input string', async () => {
+    const testSeed = 'yourtestseed'; // Replace with your test seed
+
+    const result = await EncryptionService.generateRSAKeyPairFromString(testSeed);
+
+    expect(result.private_key).toBeDefined();
+    expect(result.public_key).toBeDefined();
+
+    // You might want to add more specific expectations about the key pair properties, if needed
+  });
+
+  it('should handle input string starting with "0x"', async () => {
+    const testSeed = '0xyourtestseed'; // Replace with your test seed starting with "0x"
+    const expectedSeed = 'yourtestseed'; // Expected seed after removing "0x"
+
+    const result = await EncryptionService.generateRSAKeyPairFromString(testSeed);
+    const result2 = await EncryptionService.generateRSAKeyPairFromString(expectedSeed);
+
+    expect(result.private_key).toEqual(result2.private_key);
+    // Add assertions to check that the seed was correctly processed
+    // You might need to access internal parts of the function or expose relevant properties/methods for testing
+  });
+
 });
+})

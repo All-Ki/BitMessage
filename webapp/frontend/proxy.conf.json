@@ -1,0 +1,6 @@
+{
+	"/forge": {
+	  "target": "http://localhost:5656/static",
+	  "secure": false
+	}
+}
