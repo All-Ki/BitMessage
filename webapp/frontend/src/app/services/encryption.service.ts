@@ -5,7 +5,7 @@ import * as forge from 'node-forge';
   providedIn: 'root'
 })
 export class EncryptionService {
-  static async generateRSAKeyPairFromPublicAndPrivateKey( priv_key: string) {
+  static async generateRSAKeyPairFromPrivateKey( priv_key: string) {
     if(priv_key.startsWith('0x')){ //remove 0x so we keep maximum entropy
       priv_key = priv_key.substring(2);
     }
@@ -38,6 +38,14 @@ export class EncryptionService {
   return { private_key, public_key };
   }
 
+
+  static key_to_storage(keypair: any){
+    return JSON.stringify({private_key: forge.pki.privateKeyToPem(keypair.private_key), public_key: forge.pki.publicKeyToPem(keypair.public_key)});
+  }
+  static key_from_storage(key: any){
+    key = JSON.parse(key);
+    return {private_key: forge.pki.privateKeyFromPem(key.private_key), public_key: forge.pki.publicKeyFromPem(key.public_key)};
+  }
   static async encryptData(data: string, publicKey: CryptoKey) {
     const encoder = new TextEncoder();
     const encryptedData = await crypto.subtle.encrypt(
