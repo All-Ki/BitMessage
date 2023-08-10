@@ -15,7 +15,7 @@ const app = express()
  * @example app.post('/', (req) => req.body.prop)
  */
 app.use(express.json())
-
+app.use('/static', express.static('static'))
 /**
  * On dit à Express que l'on souhaite autoriser tous les noms de domaines
  * à faire des requêtes sur notre API.

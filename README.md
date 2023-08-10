@@ -5,5 +5,8 @@ FUTURE PLANS :
 - Add a federated server architecture where anyone can be a node
 - Integrate multiple blockchain backends (Solidity VM, Bitcoin, Solana)
 
+TODO :
+- evaluate security risks of imported crypto packages
+- change/reimplement unsafe functions as needed
 
 For inquiries or commercial use, contact bitmessage.app@gmail.com

@@ -5,11 +5,11 @@ describe('NewDiscussionPage', () => {
   let component: NewDiscussionPage;
   let fixture: ComponentFixture<NewDiscussionPage>;
 
-  beforeEach(async(() => {
+  beforeEach(async() => {
     fixture = TestBed.createComponent(NewDiscussionPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
