@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js';
 import * as forge from 'node-forge';
 @Injectable({
   providedIn: 'root'
