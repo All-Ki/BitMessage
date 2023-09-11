@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { CONSTANTS } from ':common/constants';
 import { UserSettings } from ':common/models';
 import { EncryptionService } from 'src/app/services/encryption.service';
-
+import { IonLoaderService } from 'src/app/ion-loader.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +16,7 @@ export class UsersService extends ServiceWithInit {
   private wallet: any;
   private user_settings: UserSettings  = new UserSettings();
   private rsa_keypair: any;
-  constructor(private storage: StorageService, private navCtrl: NavController, private router:Router) {
+  constructor(private storage: StorageService, private navCtrl: NavController, private router:Router, private IonLoaderService: IonLoaderService) {
     super(storage);
   }
   override async OnStorageReady() {
@@ -45,19 +45,22 @@ export class UsersService extends ServiceWithInit {
   }
 
   async login(private_key: string): Promise<boolean> {
-    try {
 
+    try {
+      await this.IonLoaderService.simpleLoader();
       let acc = Accounts.privateKeyToAccount(private_key);
-      let signed = acc.sign('Login from ' + acc.address).signature;
       if(this.rsa_keypair == null){
         this.rsa_keypair = await EncryptionService.generateRSAKeyPairFromPrivateKey(private_key);
         //console.log(this.rsa_keypair);
         this.storage.set('rsa_keypair', EncryptionService.key_to_storage(this.rsa_keypair));
       }
+      const public_key_pem = EncryptionService.public_key_pem(this.rsa_keypair);
+
+      let signed = acc.sign('Login from ' + acc.address + public_key_pem).signature;
       const res = await ApiService.post('/login', {
         public_key: acc.address,
         encrypted_message: signed,
-        rsa_public_key: EncryptionService.public_key_pem(this.rsa_keypair)
+        rsa_public_key: public_key_pem,
       });
 
       if(res.status != 200){
@@ -66,11 +69,16 @@ export class UsersService extends ServiceWithInit {
       }
       this.wallet = acc;
       this.storage.set('wallet', acc.privateKey);
+      await this.IonLoaderService.dismissLoader();
 
       return true;
     } catch (e) {
       console.log(e);
+      //this.IonLoaderService.dismissLoader();
+
       return false;
+    }
+    finally{
     }
   }
   public async saveUserSettings(userSettings: UserSettings) : Promise<boolean>{
