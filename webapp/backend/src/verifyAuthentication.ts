@@ -1,6 +1,6 @@
 import { verify_signed_message } from '../../common/functions/message_signature';
 import { CONSTANTS } from ':common/constants'; // Import the CONSTANTS class
-import { Nonce } from './models-ts';
+import { Nonce } from './models';
 import { NextFunction, Request, Response } from 'express';
 async function authenticationMiddleware(req: Request, res: Response, next: NextFunction) {
   const public_key = req.headers['x-public-key'] as string;

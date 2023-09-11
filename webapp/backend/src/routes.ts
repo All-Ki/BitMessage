@@ -1,16 +1,10 @@
 
 import express, { Request, Response, Express } from 'express';
-import { Message, Nonce, ContactList, User } from './models-ts';
-import * as Accounts from 'web3-eth-accounts';
+import { Message, Nonce, ContactList, User } from './models';
 import { authenticationMiddleware } from './verifyAuthentication';
-type NewMessage = {
-	text: string;
-	sender: number;
-	receiver: number;
-	client_id: string;
-	id?: number;
-	date?: Date;
-  };
+import { Messages } from './messages';
+import { Users } from './users';
+
 class Routes {
 	private app: Express;
 
@@ -23,15 +17,7 @@ class Routes {
 	  res.send('ma bite');
 	}
 
-	private async messagesHandler(req: Request, res: Response) {
-	  console.log(req.body);
-	  const message: NewMessage = req.body;
-	  message.id = undefined;
-	  const builtMessage = Message.build(message);
-	  let ret = await builtMessage.save();
-	  console.log(ret);
-	  res.send(message);
-	}
+
 
 	private async getMessagesHandler(req: Request, res: Response) {
 	  const receiver = req.params.receiver;
@@ -58,43 +44,6 @@ class Routes {
 	  });
 
 	  res.send(msgs);
-	}
-
-	private async loginHandler(req: Request, res: Response) {
-	  const public_key = req.body.public_key;
-	  const encrypted_message = req.body.encrypted_message;
-	  const rsa_public_key = req.body.rsa_public_key;
-	  if(!public_key || !encrypted_message || !rsa_public_key){
-		res.status(401).json({ success: false, message: 'Invalid signature or key' });
-		return
-	  }
-
-
-	  console.log('Public Key:' + public_key);
-	  console.log('Encrypted Message:' + encrypted_message);
-
-	  var verifier = Accounts.recover('Login from ' + public_key, encrypted_message);
-
-	  if (verifier === public_key) {
-
-		const userData = await User.findOne({
-		  where: {
-			public_key: public_key,
-		  },
-		});
-		if (!userData) {
-		  const user = {
-			public_key: public_key,
-			rsa_public_key: rsa_public_key,
-		  };
-		  const newUser = User.build(user);
-		  await newUser.save();
-		}
-
-		res.status(200).json({ success: true, message: 'Login successful' });
-	  } else {
-		res.status(401).json({ success: false, message: 'Invalid signature or key' });
-	  }
 	}
 
 	private async userSettingsHandler(req: Request, res: Response) {
@@ -164,10 +113,10 @@ class Routes {
 	}
 	createRoutes(): Express {
 	  this.app.get('/', this.rootHandler.bind(this));
-	  this.app.post('/messages',authenticationMiddleware, this.messagesHandler.bind(this));
+	  this.app.post('/messages',authenticationMiddleware, Messages.new_message);
 	  this.app.get('/messages/:receiver/:sender',authenticationMiddleware, this.getMessagesHandler.bind(this));
 	  this.app.get('/discussions/:user', this.discussionsHandler.bind(this));
-	  this.app.post('/login', this.loginHandler.bind(this));
+	  this.app.post('/login', Users.login);
 	  this.app.post('/user_settings',authenticationMiddleware, this.userSettingsHandler.bind(this));
 	  this.app.get('/contacts', this.getContactsHandler.bind(this));
 	  this.app.post('/contacts', this.saveContactsHandler.bind(this));
