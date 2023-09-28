@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Message } from "~/models";
+import { Message } from "./messages.models";
 type NewMessage = {
 	text: string;
 	sender: number;
