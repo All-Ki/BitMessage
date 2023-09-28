@@ -1,7 +1,7 @@
-import { verify_signed_message } from '../../common/functions/message_signature';
 import { CONSTANTS } from ':common/constants'; // Import the CONSTANTS class
-import { Nonce } from './models';
 import { NextFunction, Request, Response } from 'express';
+import { Nonce } from './auth.models';
+import { verify_signed_message } from ':common/functions/message_signature';
 async function authenticationMiddleware(req: Request, res: Response, next: NextFunction) {
   const public_key = req.headers['x-public-key'] as string;
   const signature = req.headers['x-signature'] as string;

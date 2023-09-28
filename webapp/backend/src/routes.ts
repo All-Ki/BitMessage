@@ -1,9 +1,11 @@
 
 import express, { Request, Response, Express } from 'express';
-import { Message, Nonce, ContactList, User } from './models';
-import { authenticationMiddleware } from './verifyAuthentication';
 import { Messages } from './messages';
 import { Users } from './users';
+import { Message } from './messages/messages.models';
+import {  ContactList } from './users/users.models';
+import { authenticationMiddleware } from './auth/auth';
+import { Nonce } from './auth/auth.models';
 
 class Routes {
 	private app: Express;
@@ -14,7 +16,7 @@ class Routes {
 	}
 
 	private rootHandler(req: Request, res: Response) {
-	  res.send('ma bite');
+	  res.send('Working !');
 	}
 
 

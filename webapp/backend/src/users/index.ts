@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { User } from "~/models";
 import * as Accounts from 'web3-eth-accounts';
+import { User } from "./users.models";
 
 export class Users{
 	public static async login (req: Request, res: Response) {
