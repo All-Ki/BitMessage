@@ -4,6 +4,7 @@ pipeline {
 		stage('Build frontend') {
 			steps {
 				echo "============= Building frontend============"
+                sh 'npm install'
 			}
           post{
                 always{
