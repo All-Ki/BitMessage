@@ -3,8 +3,14 @@ pipeline {
 	stages {
 		stage('Build frontend') {
 			steps {
-				echo "============= Building frontend============"
+                try{
+                echo "============= Building frontend!============"
                 sh 'npm install'
+                }catch (err) {
+                    echo "Caught: ${err}"
+                    currentBuild.result = 'FAILURE'
+                }
+
 			}
           post{
                 always{
