@@ -36,7 +36,6 @@ node {
 
             try{
                 dir("blockchain/solidity"){
-                    bat "truffle compile"
                  }
             }
             catch (exc) {
