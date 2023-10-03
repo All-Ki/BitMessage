@@ -1,87 +1,56 @@
-pipeline {
-	agent any
-	stages {
+node {
+        bat "npm --version"
 		stage('Build frontend') {
-			steps {
-                try{
-                echo "============= Building frontend!============"
-                sh 'npm install'
-                }catch (err) {
-                    echo "Caught: ${err}"
-                    currentBuild.result = 'FAILURE'
-                }
-
-			}
-          post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "======== frontend Build executed successfully========"
-                }
-                failure{
-                    echo "=======frontend Build execution failed========"
-                }
+            try{
+                    echo "============= Building frontend!============"
+                 dir("webapp/frontend"){
+                    bat "npm install"
+                    bat "npm run build"
+                 }
             }
+            catch (exc) {
+                echo "Caught: ${exc}"
+                currentBuild.result = 'FAILURE'
+        }
+
 		}
 		stage('Build backend') {
-			steps {
-				echo "============= Building backend============"
-			}
-          post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "======== backend Build executed successfully========"
-                }
-                failure{
-                    echo "=======backend Build execution failed========"
-                }
+            echo "============= Building backend============"
+
+            try{
+                dir("webapp/backend"){
+                    bat "npm install"
+                    bat "npm run build"
+                 }
             }
+            catch (exc) {
+                echo "Caught: ${exc}"
+                currentBuild.result = 'FAILURE'
+        }
+
+
 		}
 		stage('Build Eth Contracts') {
-			steps {
-				echo "============= Building Eth Contracts============"
-			}
-          post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "======== Eth Contracts Build executed successfully========"
-                }
-                failure{
-                    echo "=======Eth Contracts Build execution failed========"
-                }
+
+            echo "============= Building  Eth Contracts============"
+
+            try{
+                dir("blockchain/solidity"){
+                    bat "truffle compile"
+                 }
             }
+            catch (exc) {
+                echo "Caught: ${exc}"
+                echo "DID YOU SET TRUFFLE AS A GLOBAL PACKAGE IN JENKINS ? "
+                currentBuild.result = 'FAILURE'
+        }
+
+
 		}
 		stage('Build Sol Contracts') {
-			steps {
+
 				echo "============= Building Sol Contracts============"
-			}
-          post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========  Sol Contracts Build executed successfully========"
-                }
-                failure{
-                    echo "======= Sol Contracts Build execution failed========"
-                }
-            }
 		}
-	}
-	post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+
+
 }
