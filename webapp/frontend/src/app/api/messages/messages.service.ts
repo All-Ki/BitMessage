@@ -24,8 +24,6 @@ export class MessagesService extends ServiceWithInit{
   override async OnStorageReady() {
     this.current_user = this.userSvc.getCurrentUser();
     let discussions =  await this.storage.get('discussions');
-    console.log('discussions');
-    console.log(discussions);
     if(discussions != null){
       this.Discussions = discussions;
     }

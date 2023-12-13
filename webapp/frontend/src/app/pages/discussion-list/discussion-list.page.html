@@ -3,27 +3,36 @@
     <ion-toolbar>
       <ion-title style="padding-left:0;">
         <ion-item>
-        <ion-avatar slot="start">
-          <img alt="Silhouette of a person's head" width="40" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>
-          <h2>{{displayAddress()}}</h2>
+          <ion-avatar slot="start">
+            <img alt="Silhouette of a person's head" width="40"
+              src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-label>
+            <h2 (click)="copyAddressToClipboard()" class="pointerOnHover">{{displayAddress()}}</h2>
           </ion-label>
         </ion-item>
-     </ion-title>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list class="p-0-bottom">
-      <ion-item class="pointerOnHover" (click)="goTo('/settings')" > Settings</ion-item>
-      <ion-item  class="pointerOnHover"(click)="goTo('/contacts-list')">Contacts </ion-item>
-      <ion-item  class="pointerOnHover"(click)="goTo('/contacts-list')">Help</ion-item>
+      <ion-item class="pointerOnHover" (click)="goTo('/settings')"> Settings</ion-item>
+      <ion-item class="pointerOnHover" (click)="goTo('/contacts-list')">Contacts </ion-item>
+      <ion-item class="pointerOnHover" (click)="goTo('/contacts-list')">Help</ion-item>
       <ion-item class="pointerOnHover" (click)="logout()">Logout</ion-item>
+      <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select (valueChange)="changeAccount($event)">
+
+          <mat-option *ngFor="let food of accs" [value]="food">{{food}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<div  id="main-content" class="ion-page">
+<div id="main-content" class="ion-page">
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -32,19 +41,20 @@
       <ion-title>Messages</ion-title>
     </ion-toolbar>
   </ion-header>
-<ion-content>
-  <ion-list>
-    <ion-item class="discussion-list-item" *ngFor="let discussion of discussions" (click)="goToChat(discussion)">
-      <ion-avatar slot="start">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ discussion.other }}</h2>
-        <p>{{ discussion.lastMessage }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-<button class="new-discussion-button" (click)="goTo('new-discussion')"> <ion-icon name="chatbubble-ellipses-outline"></ion-icon></button>
+  <ion-content>
+    <ion-list>
+      <ion-item class="discussion-list-item" *ngFor="let discussion of discussions" (click)="goToChat(discussion)">
+        <ion-avatar slot="start">
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ discussion.other }}</h2>
+          <p>{{ discussion.lastMessage }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <button class="new-discussion-button" (click)="goTo('new-discussion')"> <ion-icon
+        name="chatbubble-ellipses-outline"></ion-icon></button>
 
-</ion-content>
+  </ion-content>
 </div>

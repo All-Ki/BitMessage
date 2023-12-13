@@ -36,7 +36,11 @@
                 "output": "./forge"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/theme/variables.scss",
+              "src/global.scss"
+            ],
             "scripts": ["node_modules/node-forge/dist/forge.min.js","node_modules/node-forge/dist/prime.worker.min.js"]
           },
           "configurations": {
@@ -117,7 +121,11 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/theme/variables.scss",
+              "src/global.scss"
+            ],
             "scripts": []
           },
           "configurations": {
