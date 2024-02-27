@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "back",
+        "type": "shell",
+        "command": "npm run dev",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "options": {
+          "cwd": "${workspaceFolder}/webapp/backend"
+        },      "runOptions": {
+          "runOn": "folderOpen"
+        }
+      },
+      {
+        "label": "front",
+        "type": "shell",
+        "command": "npm run watch",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "options": {
+          "cwd": "${workspaceFolder}/webapp/frontend"
+        },      "runOptions": {
+          "runOn": "folderOpen"
+        }
+      }
+    ]
+  }
+  

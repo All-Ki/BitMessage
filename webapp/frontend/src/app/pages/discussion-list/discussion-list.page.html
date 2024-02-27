@@ -20,13 +20,13 @@
       <ion-item class="pointerOnHover" (click)="goTo('/contacts-list')">Contacts </ion-item>
       <ion-item class="pointerOnHover" (click)="goTo('/contacts-list')">Help</ion-item>
       <ion-item class="pointerOnHover" (click)="logout()">Logout</ion-item>
-      <mat-form-field>
+      <ion-item>
         <mat-label>Favorite food</mat-label>
-        <mat-select (valueChange)="changeAccount($event)">
+        <ion-select (ionChange)="changeAccount($event)">
 
-          <mat-option *ngFor="let food of accs" [value]="food">{{food}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+          <ion-select-option *ngFor="let disc of accs" [value]="disc">{{disc}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
     </ion-list>
   </ion-content>

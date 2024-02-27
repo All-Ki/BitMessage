@@ -26,8 +26,8 @@ export class UsersService extends ServiceWithInit {
   }
   override async OnStorageReady() {
     console.log('storage ready');
-    var pk = await this.storage.get('wallet');
-    this.rsa_keypair = await this.storage.get('rsa_keypair');
+    var pk = await this.storage.get<string>('wallet');
+    this.rsa_keypair = await this.storage.get<string>('rsa_keypair');
     //console.log(JSON.parse(this.rsa_keypair));
     if (this.rsa_keypair != null) {
       this.rsa_keypair = EncryptionService.key_from_storage(this.rsa_keypair);
@@ -36,14 +36,14 @@ export class UsersService extends ServiceWithInit {
     if (pk != null) {
       if ((await this.login(pk)) && this.router.url == '/login') {
         this.user_settings =
-          (await this.storage.get('user_settings')) || new UserSettings();
+          (await this.storage.get<UserSettings>('user_settings')) ||
+          new UserSettings();
         this.navCtrl.navigateRoot(CONSTANTS.discussion_list_page);
       }
     }
   }
 
   getCurrentUser(): string {
-    console.log(this.wallet);
     return this.wallet?.address || '';
   }
 

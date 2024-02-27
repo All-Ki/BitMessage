@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-
+import { EncryptionService } from './encryption.service';
 import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   private _storage: Storage | null = null;
   private _isReady: boolean = false;
   public async waitForReady() {
-    while(!this._isReady){
-      await new Promise(resolve => setTimeout(resolve, 100));
+    while (!this._isReady) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
   }
   constructor(private storage: Storage) {
@@ -31,9 +31,7 @@ export class StorageService {
   public set(key: string, value: any) {
     this._storage?.set(key, value);
   }
-  public async get(key: string) {
-    console.log("get " + key)
-    console.log(this._storage)
+  public async get<T>(key: string) {
     return await this._storage?.get(key);
   }
 }

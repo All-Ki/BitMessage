@@ -8,7 +8,7 @@ import { Contact } from ':common/models';
   templateUrl: './add-contact.page.html',
   styleUrls: ['./add-contact.page.scss'],
 })
-export class AddContactPage implements OnInit {
+export class AddContactPage {
   public contact: any = {
     name: '',
     publicKey: '',
@@ -23,14 +23,13 @@ export class AddContactPage implements OnInit {
     private contactsService: ContactsService
   ) {}
 
-  ngOnInit() {}
   goToContactList() {
     this.navCtrl.navigateForward(CONSTANTS.contacts_list_page);
   }
   isNetworkSelected(network: string): boolean {
     return this.selectedNetworks.includes(network);
   }
-  addContact() {
+  async addContact() {
     const contact: Contact = {
       name: this.contact.name,
       public_key: this.contact.publicKey,
