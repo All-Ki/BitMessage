@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
 import { UsersService } from 'src/app/api/users/users.service';
 import { CONSTANTS } from ':common/constants';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiscussionLight } from ':common/models';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-discussion-list',
@@ -13,16 +14,20 @@ import { DiscussionLight } from ':common/models';
   styleUrls: ['./discussion-list.page.scss'],
 })
 export class DiscussionListPage implements OnInit {
-  public discussions: DiscussionLight[] = [];
+  private route = inject(ActivatedRoute);
+  private data = toSignal(this.route.data);
+  public discussions: DiscussionLight[] = computed(
+    this.data().discussions as DiscussionLight[]
+  );
   public accs = [
     '0x8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b41de8f',
     '0x314125113e3e848d5a2ba23cb70d911f06155d4ee21173356f40f1335e665a53',
   ];
+
   constructor(
     public navCtrl: NavController,
     private msgSvc: MessagesService,
     private userSvc: UsersService,
-    private clipboard: Clipboard,
     private _snackBar: MatSnackBar
   ) {
     this.userAddress = this.userSvc.getCurrentUser();
@@ -38,15 +43,12 @@ export class DiscussionListPage implements OnInit {
     if (event == null || event == '') {
       return;
     }
-    console.log(event.target.value);
     await this.userSvc.logout();
     await this.userSvc.login(event.target.value);
     this.userAddress = this.userSvc.getCurrentUser();
   }
   public userAddress: string = '';
   async ionViewDidEnter() {
-    console.log('ngsssOnInit');
-    let old = this.discussions;
     this.discussions = await this.msgSvc.getDiscussions();
   }
   public displayAddress(): string {

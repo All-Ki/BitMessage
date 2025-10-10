@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { LoggedInGuardGuard } from './guards/logged-in-guard.guard';
 import { CONSTANTS } from ':common/constants';
+import { discussionsResolver } from './pages/discussion-list/discussion-list-routing.module';
 const routes: Routes = [
   {
     path: CONSTANTS.discussion_list_page,
@@ -15,6 +16,9 @@ const routes: Routes = [
         (m) => m.DiscussionListPageModule
       ),
     canActivate: [LoggedInGuardGuard],
+    resolve: {
+      discussions: discussionsResolver,
+    },
   },
   {
     path: CONSTANTS.chat_page + '/:id',
