@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
 import { UsersService } from 'src/app/api/users/users.service';
@@ -16,9 +16,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class DiscussionListPage implements OnInit {
   private route = inject(ActivatedRoute);
   private data = toSignal(this.route.data);
-  public discussions: DiscussionLight[] = computed(
-    this.data().discussions as DiscussionLight[]
-  );
+  public discussions = signal([] as DiscussionLight[]);
   public accs = [
     '0x8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b41de8f',
     '0x314125113e3e848d5a2ba23cb70d911f06155d4ee21173356f40f1335e665a53',
@@ -49,7 +47,7 @@ export class DiscussionListPage implements OnInit {
   }
   public userAddress: string = '';
   async ionViewDidEnter() {
-    this.discussions = await this.msgSvc.getDiscussions();
+    this.discussions.set(await this.msgSvc.getDiscussions());
   }
   public displayAddress(): string {
     return (
@@ -68,7 +66,7 @@ export class DiscussionListPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.discussions = await this.msgSvc.getDiscussions();
+    this.discussions.set(await this.msgSvc.getDiscussions());
     console.log(this.discussions);
   }
 
