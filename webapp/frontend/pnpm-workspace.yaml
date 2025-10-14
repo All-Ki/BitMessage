@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - cryptico-js
+  - esbuild
+  - lmdb
+  - msgpackr-extract

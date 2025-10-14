@@ -11,11 +11,6 @@ export class Users{
 		  res.status(401).json({ success: false, message: 'Invalid signature or key' });
 		  return
 		}
-
-
-		console.log('Public Key:' + public_key);
-		console.log('Encrypted Message:' + encrypted_message);
-
 		var verifier = Accounts.recover('Login from ' + public_key +rsa_public_key, encrypted_message);
 
 		if (verifier === public_key) {

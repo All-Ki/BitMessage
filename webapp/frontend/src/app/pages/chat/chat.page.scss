@@ -27,4 +27,9 @@ ion-badge {
     padding: 10px!important;
     text-align: left;
     max-width: 80%;
+	 white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  display: inline-block;
+  max-width: 80%; // keeps messages readable
 }

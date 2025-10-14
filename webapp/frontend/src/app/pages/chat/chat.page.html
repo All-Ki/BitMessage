@@ -1,37 +1,57 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chat
-     </ion-title>
-     <ion-button  (click)="goToDiscussionList()" slot="end"> <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+    <ion-title>Chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToDiscussionList()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content #msgList>
-  <div class="container"  #list [scrollTop]="list.scrollHeight" >
-    <div class="stream" >
-      <ion-item lines="none" *ngFor="let message of messages; let i=index">
-        <ion-avatar *ngIf="message.from === discussion_id"  slot="start"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
-        <ion-badge text-wrap slot="start" color="light" *ngIf="message.from === discussion_id">{{ message.text }}  </ion-badge>
-        <ion-badge text-wrap slot="end" color="primary" *ngIf="message.from !== discussion_id">  {{ message.text }}</ion-badge>
-        <ion-avatar *ngIf="message.from !== discussion_id" slot="end"> <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+  <div class="container" #list [scrollTop]="list.scrollHeight">
+    <div class="stream">
+      @for (message of messages; track $index) {
+        <ion-item lines="none">
+          
+          @if (message.from === discussion_id) {
+            <ion-avatar slot="start">
+              <img alt="User avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-badge text-wrap slot="start" color="light">
+              {{ message.text }}
+            </ion-badge>
+          } @else {
+            <ion-badge text-wrap slot="end" color="primary">
+              {{ message.text }}
+            </ion-badge>
+            <ion-avatar slot="end">
+              <img alt="User avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+          }
 
-
-      </ion-item>
-  </div>
-
+        </ion-item>
+      }
+    </div>
   </div>
 </ion-content>
+
 <ion-footer>
-<ion-grid class="send-message">
-  <ion-row>
-    <ion-col size="10" class="input-col">
-      <ion-input  type="text" placeholder="Entrez votre message" [(ngModel)]="currentMessage"></ion-input>
-    </ion-col>
-    <ion-col size="2" class="send-col">
-      <ion-button (click)="sendMessage()" shape="full">
-        <ion-icon name="paper-plane"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid class="send-message">
+    <ion-row>
+      <ion-col size="10" class="input-col">
+        <ion-input
+          type="text"
+          placeholder="Entrez votre message"
+          [(ngModel)]="currentMessage"
+        ></ion-input>
+      </ion-col>
+      <ion-col size="2" class="send-col">
+        <ion-button (click)="sendMessage()" shape="full">
+          <ion-icon name="paper-plane"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

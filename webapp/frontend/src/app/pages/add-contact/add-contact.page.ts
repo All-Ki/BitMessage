@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { CONSTANTS } from ':common/constants';
 import { ContactsService } from 'src/app/api/contacts/contacts.service';
@@ -16,7 +16,7 @@ export class AddContactPage {
   };
 
   predefinedNetworks: string[] = ['BitMessage', 'Ethereum', 'Bitcoin'];
-  selectedNetworks: string[] = [];
+  selectedNetworks = signal([] as string[]);
 
   constructor(
     private navCtrl: NavController,
@@ -27,13 +27,13 @@ export class AddContactPage {
     this.navCtrl.navigateForward(CONSTANTS.contacts_list_page);
   }
   isNetworkSelected(network: string): boolean {
-    return this.selectedNetworks.includes(network);
+    return this.selectedNetworks().includes(network);
   }
   async addContact() {
     const contact: Contact = {
       name: this.contact.name,
       public_key: this.contact.publicKey,
-      networks: this.selectedNetworks,
+      networks: this.selectedNetworks(),
     };
 
     if (

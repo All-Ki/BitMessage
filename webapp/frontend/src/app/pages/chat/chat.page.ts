@@ -1,47 +1,46 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { IonContent, NavController } from '@ionic/angular';
 import { MessagesService } from 'src/app/api/messages/messages.service';
 import { ActivatedRoute } from '@angular/router';
-import {CONSTANTS} from ":common/constants";
-import { Message} from ':common/models'
+import { CONSTANTS } from ':common/constants';
+import { Message } from ':common/models';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-
-  public messages : any = [];
-  discussion_id = ""
+  public messages: any = [];
+  discussion_id = '';
   currentMessage = '';
-  @ViewChild('msgList') private content: any;
+  @ViewChild('msgList') private content?: IonContent;
 
-  goToDiscussionList(){
+  goToDiscussionList() {
     console.log('goToDiscussionList');
     this.navCtrl.navigateForward(CONSTANTS.discussion_list_page);
   }
 
-  constructor(public navCtrl: NavController, private msgSvc: MessagesService,private route: ActivatedRoute) {
+  /** Dependencies injected via Angular 17's inject() API */
+  private readonly navCtrl = inject(NavController);
+  private readonly msgSvc = inject(MessagesService);
+  private readonly route = inject(ActivatedRoute);
 
-  }
-
-
-  async sendMessage(){
-    console.log('sendMessage');
+  async sendMessage() {
     await this.msgSvc.postMessage(this.currentMessage, this.discussion_id);
     this.currentMessage = '';
-    this.content.scrollToBottom(0);
+    await this.scrollToBottom();
   }
 
- async ngOnInit() {
-    this.route.params.subscribe(async params => {
-      console.log(params);
+  async ngOnInit() {
+    this.route.params.subscribe(async (params) => {
       this.discussion_id = params['id'];
-      this.messages =   await this.msgSvc.getMessagesFrom(this.discussion_id);
-     await this.content.scrollToBottom(0);
-
-    })
-
+      this.messages = await this.msgSvc.getMessagesFrom(this.discussion_id);
+      await this.scrollToBottom();
+    });
   }
 
+  private async scrollToBottom(): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 50)); // Wait for DOM update
+    await this.content?.scrollToBottom(300);
+  }
 }
